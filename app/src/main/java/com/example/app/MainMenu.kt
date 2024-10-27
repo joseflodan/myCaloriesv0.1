@@ -104,7 +104,7 @@ fun MainMenu(
             )
             Text(text = " CONTADOR", color = Color.Black)
         }
-
+//este es un comentario de prueva
         TextButton(
             onClick = {
                 scanner.invoke()
