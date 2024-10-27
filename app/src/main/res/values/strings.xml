@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Calories</string>
+    <string name="iniciar_sesion">INICIAR SESIÓN</string>
+    <string name="registrarse">REGISTRARSE</string>
+    <string name="correo_electr">Correo Electrónico</string>
+    <string name="nombre_usuario">Nombre de Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="confirmar_contra">Confirmar Contraseña</string>
+    <string name="titulo_screen1">CONFIGURACÓN</string>
+</resources>
