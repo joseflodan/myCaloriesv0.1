@@ -5,15 +5,10 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -35,7 +30,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MainMenu(
     modifier: Modifier = Modifier,
-    scanner: () -> Unit = {}
+    scanner: () -> Unit = {},
+    ayunoInter: () -> Unit = {}
 ) {
     val context = LocalContext.current;
     Column(
@@ -82,7 +78,7 @@ fun MainMenu(
 
         TextButton(
             onClick = {
-                Toast.makeText(context, "AYUNO INTERMITENTE precionado", Toast.LENGTH_SHORT).show()
+                ayunoInter.invoke()
             },
             modifier = Modifier.offset(x = screenWith / 2 - screenWith / 6, y = -screenWith / 5.5f)
         ) {
