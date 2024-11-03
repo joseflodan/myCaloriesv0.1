@@ -27,7 +27,10 @@ fun MyCaloriesApp(
         topBar = {
             MyCaloriesAppBar(
                 canNavgateBack = true,
-                navigateUp = {}
+                navigateUp = { navController.navigateUp()},
+                settings = {
+                    navController.navigate(MyCaloriesScreen.SetingScreen.name)
+                }
             )
         }
     ){ innerPadding ->
@@ -46,24 +49,23 @@ fun MyCaloriesApp(
             composable(route = MyCaloriesScreen.MainMenu.name) {
                 MainMenu()
             }
+
+
             composable(route = MyCaloriesScreen.MainMenu.name){
                 MainMenu(
                     scanner = {
                         navController.navigate(MyCaloriesScreen.Scanner.name)
-                    }
-                )
-            }
-
-            composable(route = MyCaloriesScreen.Scanner.name) {
-                Scanner()
-            }
-
-            composable(route = MyCaloriesScreen.MainMenu.name){
-                MainMenu(
+                    },
                     ayunoInter = {
                         navController.navigate(MyCaloriesScreen.AyunoScreen.name)
                     }
                 )
+            }
+            composable(route = MyCaloriesScreen.SetingScreen.name) {
+                SetingScreen()
+            }
+            composable(route = MyCaloriesScreen.Scanner.name) {
+                Scanner()
             }
             composable(route = MyCaloriesScreen.AyunoScreen.name) {
                 AyunoScreen()
@@ -77,7 +79,8 @@ fun MyCaloriesApp(
 fun MyCaloriesAppBar(
     canNavgateBack: Boolean,
     navigateUp: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    settings: () -> Unit = {}
 ){
     TopAppBar(
         title = {
@@ -88,8 +91,8 @@ fun MyCaloriesAppBar(
         ),
         modifier = modifier,
         navigationIcon = {
-            if(canNavgateBack){
-                IconButton(onClick = navigateUp){
+            if (canNavgateBack) {
+                IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.KeyboardArrowLeft,
                         contentDescription = ""
@@ -97,7 +100,10 @@ fun MyCaloriesAppBar(
                 }
 
             }
+        },
+        actions = {
             IconButton(onClick ={
+                settings.invoke()
             }
             ){
                 Icon(
