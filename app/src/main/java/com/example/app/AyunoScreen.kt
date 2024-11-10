@@ -54,7 +54,7 @@ fun AyunoScreen(
 
         val configuration = LocalConfiguration.current
         val screenHeight = configuration.screenHeightDp.dp
-        val screenWith = configuration.screenWidthDp.dp
+        val screenWith = configuration.screenWidthDp.dp - 30.dp
 
         Canvas(
             modifier = Modifier
@@ -67,8 +67,8 @@ fun AyunoScreen(
                 sweepAngle = BackgroundSweepAngle,
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
-                size = Size(screenHeight.value, screenHeight.value),
-                topLeft = Offset(x = screenHeight.value / 10f, y = - screenHeight.value / 7.5f)
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
             )
 
             drawArc(
@@ -77,8 +77,8 @@ fun AyunoScreen(
                 sweepAngle = (percentage * TotalSweepAngle).toFloat(),
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
-                size = Size(screenHeight.value, screenHeight.value),
-                topLeft = Offset(x = screenHeight.value / 10f, y = - screenHeight.value / 7.5f)
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
             )
 
             val offsetX = screenHeight.value / 10f
