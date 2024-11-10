@@ -30,12 +30,6 @@ fun AyunoScreen(
     backgroundColor: Color = Color.Gray,
     strokeWidth: Dp = 8.dp
 ) {
-    val BackgroundStartAngle = 140f
-    val BackgroundSweepAngle = 260f
-    val CircleRadius = 5f
-    val AngleOffset = 50.0
-    val TotalSweepAngle = 260.0
-
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
@@ -52,9 +46,15 @@ fun AyunoScreen(
     ) {
 
 
+        val BackgroundStartAngle = 140f
+        val BackgroundSweepAngle = 260f
+        val CircleRadius = 10f
+        val AngleOffset = 50.0
+        val TotalSweepAngle = 260.0
+
         val configuration = LocalConfiguration.current
         val screenHeight = configuration.screenHeightDp.dp
-        val screenWith = configuration.screenWidthDp.dp
+        val screenWith = configuration.screenWidthDp.dp - 30.dp
 
         Canvas(
             modifier = Modifier
@@ -67,8 +67,8 @@ fun AyunoScreen(
                 sweepAngle = BackgroundSweepAngle,
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
-                size = Size(screenHeight.value, screenHeight.value),
-                topLeft = Offset(x = screenHeight.value / 10f, y = - screenHeight.value / 7.5f)
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+               topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
             )
 
             drawArc(
@@ -77,11 +77,11 @@ fun AyunoScreen(
                 sweepAngle = (percentage * TotalSweepAngle).toFloat(),
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
-                size = Size(screenHeight.value, screenHeight.value),
-                topLeft = Offset(x = screenHeight.value / 10f, y = - screenHeight.value / 7.5f)
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
             )
 
-            val offsetX = screenHeight.value / 10f
+            val offsetX = screenHeight.value / 50f
             val offsetY = -screenHeight.value / 7.5f
             val angleInDegrees = (percentage * TotalSweepAngle) + AngleOffset
             val radius = (size.height / 2)
@@ -91,7 +91,7 @@ fun AyunoScreen(
             drawCircle(
                 color = Color.White,
                 radius = CircleRadius,
-                center = Offset(x, y)
+                center = Offset(offsetX,offsetY)
             )
         }
     }
@@ -101,7 +101,7 @@ fun AyunoScreen(
 @Composable
 fun AyunoPreview() {
     AyunoScreen(
-        percentage = 0.90f,
+        percentage = 0.70f,
         fillColor = Color(android.graphics.Color.parseColor("#4DB6AC")),
         backgroundColor = Color(android.graphics.Color.parseColor("#90A4AE")),
         strokeWidth = 10.dp

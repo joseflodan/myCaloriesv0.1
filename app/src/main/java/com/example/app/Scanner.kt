@@ -6,6 +6,7 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +20,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.app.model.FoodResult
+import com.example.app.viewmodel.FoodApiViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -48,7 +52,20 @@ fun Scanner(
             Text("No Camera Permission")
         }
     }else{
-        Text(text = codigoCapturdo)
+        val marsViewModel: FoodApiViewModel = viewModel()
+        marsViewModel.getFoodProduct(codigoCapturdo)
+        ResultScreen(marsViewModel.respuesta)
+    }
+}
+
+
+@Composable
+fun ResultScreen(respuesta: FoodResult) {
+    Column {
+        Text(respuesta.product?.brands.toString())
+        Text(respuesta.product?.productName.toString())
+        Text(respuesta.product?.imageUrl.toString())
+        Text(respuesta.product?.nutriments?.energyKcal.toString())
     }
 }
 
