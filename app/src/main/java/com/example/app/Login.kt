@@ -251,6 +251,7 @@ private fun leerUsuario(context: Context, email: String, password: String, nextS
         if (filtered.isEmpty()){
             Toast.makeText(context, "Usuario no existe",Toast.LENGTH_SHORT).show()
         } else {
+            MyApp.USER_ID = filtered.get(0).key.toString()
             val user = filtered.get(0).getValue(User::class.java)
             if (user?.password.equals(password,true)){
                 nextScreen.invoke()

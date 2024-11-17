@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "263155388272",
-    "firebase_url": "https://mycalories-402b9-default-rtdb.firebaseio.com",
-    "project_id": "mycalories-402b9",
-    "storage_bucket": "mycalories-402b9.firebasestorage.app"
+    "project_number": "274077137623",
+    "firebase_url": "https://mycalories-2a3ec-default-rtdb.firebaseio.com",
+    "project_id": "mycalories-2a3ec",
+    "storage_bucket": "mycalories-2a3ec.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:263155388272:android:9bb6a9cdfb286b141c89b5",
+        "mobilesdk_app_id": "1:274077137623:android:50e645b28c90a1a096ce92",
         "android_client_info": {
           "package_name": "com.example.app"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCi1oRQSsgkCSsIY_M9hn-1Ve20vQnCBXI"
+          "current_key": "AIzaSyBR5s8KXXdpax0HYDQgNuYHNPPE-xX9M9A"
         }
       ],
       "services": {

@@ -40,6 +40,8 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -132,7 +134,10 @@ fun ResultScreen(respuesta: FoodResult) {
         Text(respuesta.product?.nutriments?.energyKcal.toString())
         OutlinedButton(
             onClick =  {
-
+                try{
+                   val calorias = respuesta.product?.nutriments?.energyKcal?.toFloat()
+                    calorias?.let { registrarCalorias(it) }
+                } catch (_: Exception){}
             },
             modifier = Modifier
                 .padding(10.dp)
@@ -142,4 +147,21 @@ fun ResultScreen(respuesta: FoodResult) {
             Text(text = "GUARDAR")
         }
     }
+}
+
+fun registrarCalorias(calorias : Float){
+    val reference = Firebase.database.getReference("usuarios")
+    val idReference = reference.child(MyApp.USER_ID).child("calorias")
+
+    //OPTENER CALORIAS ANTERIORES
+    var caloriasTotales = 0F
+    idReference.get().addOnSuccessListener {valorObtenido ->
+       caloriasTotales =  valorObtenido.getValue(Float::class.java)!!
+        caloriasTotales += calorias
+        //REGISTRAR CALORIAS FINALES
+        idReference.setValue(caloriasTotales)
+
+    }
+
+
 }
