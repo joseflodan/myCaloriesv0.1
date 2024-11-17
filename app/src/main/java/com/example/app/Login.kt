@@ -5,11 +5,17 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
@@ -37,6 +43,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.UUID
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Login(
     modifierExt: Modifier = Modifier,
@@ -47,6 +54,10 @@ fun Login(
     var correo by remember { mutableStateOf(value = "") }
     var nombreUsua by remember { mutableStateOf(value = "") }
     var contra by remember { mutableStateOf(value = "") }
+    val condiciones = arrayOf( "Saludable","Diabetes", "Sobrepeso")
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(condiciones[0]) }
+
     var confirmCotra by remember { mutableStateOf(value = "") }
     val titulo = stringResource(
         if(switchEncendido){
@@ -141,6 +152,45 @@ fun Login(
                 visualTransformation = PasswordVisualTransformation()
             )
         }
+        if(!switchEncendido) {
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = {
+                    expanded = !expanded
+                }
+            ) {
+                OutlinedTextField(
+                    value = selectedText,
+                    onValueChange = {},
+                    readOnly = true,
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 0.dp, vertical = 10.dp)
+                        .menuAnchor()
+                )
+
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                ) {
+                    condiciones.forEach { item ->
+                        DropdownMenuItem(
+                            text = { Text(text = item) },
+                            onClick = {
+                                selectedText = item
+                                expanded = false
+
+                            }
+                        )
+                    }
+                }
+            }
+        }
+
+
         OutlinedButton(
             onClick =  {
                 if (switchEncendido){
