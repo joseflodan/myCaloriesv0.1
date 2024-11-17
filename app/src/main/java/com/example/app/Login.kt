@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
@@ -95,7 +96,7 @@ fun Login(
         val imagen = painterResource(R.drawable.logo)
         Image(
             painter = imagen,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(Alignment.CenterHorizontally).height(200.dp),
             contentDescription = null
         )
         OutlinedTextField(
@@ -193,6 +194,7 @@ fun Login(
 
         OutlinedButton(
             onClick =  {
+
                 if (switchEncendido){
                     // INICIAR SESION
                     leerUsuario(
@@ -203,8 +205,18 @@ fun Login(
                     )
                 }else{
                     // REGISTRARSE
-                    val user = User(correo, nombreUsua, contra, CondicionesMedicas.saludable)
-                    validarUsuario(context, user, nexScreen)
+                    if(correo.isEmpty()){
+                        Toast.makeText(context,"Correo vacio",Toast.LENGTH_SHORT).show()
+                    }else if (nombreUsua.isEmpty()){
+                        Toast.makeText(context,"Nombre vacio",Toast.LENGTH_SHORT).show()
+                    }else if (contra.isEmpty()){
+                        Toast.makeText(context,"Contrasena vacia",Toast.LENGTH_SHORT).show()
+                    }else if (confirmCotra.isEmpty()) {
+                        Toast.makeText(context, "Confirmar contrasena vacia", Toast.LENGTH_SHORT)
+                            .show()
+                    }else{
+                        val user = User(correo, nombreUsua, contra, CondicionesMedicas.saludable)
+                        validarUsuario(context, user, nexScreen)}
                 }
         },
             modifier = Modifier

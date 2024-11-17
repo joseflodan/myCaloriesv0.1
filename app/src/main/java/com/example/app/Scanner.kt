@@ -1,6 +1,7 @@
 package com.example.app
 
 import android.util.Log
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
@@ -8,6 +9,10 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -16,12 +21,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.example.app.model.CondicionesMedicas
 import com.example.app.model.FoodResult
+import com.example.app.model.User
 import com.example.app.viewmodel.FoodApiViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -109,7 +122,24 @@ fun ResultScreen(respuesta: FoodResult) {
     Column {
         Text(respuesta.product?.productName.toString())
         Text(respuesta.product?.brands.toString())
-        Text(respuesta.product?.imageUrl.toString())
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current).data(respuesta.product?.imageUrl).crossfade(true).build(),
+            placeholder = painterResource(R.drawable.logo),
+            contentDescription = "Descripcion de Imagen",
+            contentScale = ContentScale.FillWidth
+        )
+
         Text(respuesta.product?.nutriments?.energyKcal.toString())
+        OutlinedButton(
+            onClick =  {
+
+            },
+            modifier = Modifier
+                .padding(10.dp)
+                .fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
+        ){
+            Text(text = "GUARDAR")
+        }
     }
 }
