@@ -32,7 +32,6 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.app.model.CondicionesMedicas
 import com.example.app.model.FoodResult
 import com.example.app.model.User
 import com.example.app.viewmodel.FoodApiViewModel
@@ -160,8 +159,5 @@ fun registrarCalorias(calorias : Float){
         caloriasTotales += calorias
         //REGISTRAR CALORIAS FINALES
         idReference.setValue(caloriasTotales)
-
     }
-
-
 }

@@ -37,7 +37,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app.model.CondicionesMedicas
 import com.example.app.model.User
 import com.example.app.ui.theme.AppTheme
 import com.google.firebase.database.ktx.database
@@ -183,7 +182,6 @@ fun Login(
                             onClick = {
                                 selectedText = item
                                 expanded = false
-
                             }
                         )
                     }
@@ -215,7 +213,7 @@ fun Login(
                         Toast.makeText(context, "Confirmar contrasena vacia", Toast.LENGTH_SHORT)
                             .show()
                     }else{
-                        val user = User(correo, nombreUsua, contra, CondicionesMedicas.saludable)
+                        val user = User(correo, nombreUsua, contra, selectedText)
                         validarUsuario(context, user, nexScreen)}
                 }
         },

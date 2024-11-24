@@ -31,7 +31,8 @@ import androidx.compose.ui.unit.dp
 fun MainMenu(
     modifier: Modifier = Modifier,
     scanner: () -> Unit = {},
-    ayunoInter: () -> Unit = {}
+    ayunoInter: () -> Unit = {},
+    contador: () -> Unit = {}
 ) {
     val context = LocalContext.current;
     Column(
@@ -55,7 +56,6 @@ fun MainMenu(
         val screenWith = configuration.screenWidthDp.dp
 
         val imagen = ImageBitmap.imageResource(R.drawable.logo)
-
 
         Canvas(
             modifier = Modifier,
@@ -91,6 +91,7 @@ fun MainMenu(
 
         TextButton(
             onClick = {
+                contador.invoke()
             },
             modifier = Modifier.offset(x = screenWith / 2.25f, y = -screenWith / 6)
         ) {

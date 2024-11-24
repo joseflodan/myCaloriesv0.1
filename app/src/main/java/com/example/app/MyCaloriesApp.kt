@@ -19,6 +19,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+
 @Composable
 fun MyCaloriesApp(
     navController: NavHostController = rememberNavController()
@@ -50,7 +53,7 @@ fun MyCaloriesApp(
                 MainMenu()
             }
 
-
+            var caloriasTotales = 0F
             composable(route = MyCaloriesScreen.MainMenu.name){
                 MainMenu(
                     scanner = {
@@ -58,6 +61,15 @@ fun MyCaloriesApp(
                     },
                     ayunoInter = {
                         navController.navigate(MyCaloriesScreen.AyunoScreen.name)
+                    },
+                    contador = {
+                        val reference = Firebase.database.getReference("usuarios")
+                        val idReference = reference.child(MyApp.USER_ID).child("calorias")
+
+                        idReference.get().addOnSuccessListener {valorObtenido ->
+                            caloriasTotales =  valorObtenido.getValue(Float::class.java)!!
+                            navController.navigate(MyCaloriesScreen.ContadorScreen.name)
+                        }
                     }
                 )
             }
@@ -69,6 +81,9 @@ fun MyCaloriesApp(
             }
             composable(route = MyCaloriesScreen.AyunoScreen.name) {
                 AyunoScreen()
+            }
+            composable(route = MyCaloriesScreen.ContadorScreen.name) {
+                ContadorScreen(calorias = caloriasTotales)
             }
         }
     }

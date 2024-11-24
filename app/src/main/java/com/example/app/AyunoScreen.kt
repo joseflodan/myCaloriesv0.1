@@ -63,8 +63,48 @@ fun AyunoScreen(
         ) {
             drawArc(
                 color = backgroundColor,
-                startAngle = BackgroundStartAngle,
-                sweepAngle = BackgroundSweepAngle,
+                startAngle = 140f,
+                sweepAngle = 84f,
+                useCenter = false,
+                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
+            )
+
+            drawArc(
+                color = fillColor,
+                startAngle = 140f,
+                sweepAngle = 84f, // ESTE SERIA EL VALOR CON EL QUE JUGAR
+                useCenter = false,
+                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
+            )
+
+            drawArc(
+                color = backgroundColor,
+                startAngle = 230f,
+                sweepAngle = 84f,
+                useCenter = false,
+                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
+            )
+
+            drawArc(
+                color = fillColor,
+                startAngle = 230F,
+                sweepAngle = 62f, // ESTE SERIA EL VALOR CON EL QUE JUGAR
+                useCenter = false,
+                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
+            )
+
+            drawArc(
+                color = backgroundColor,
+                startAngle = 320f,
+                sweepAngle = 84f,
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
@@ -101,7 +141,6 @@ fun AyunoScreen(
 @Composable
 fun AyunoPreview() {
     AyunoScreen(
-        percentage = 0.90f,
         fillColor = Color(android.graphics.Color.parseColor("#4DB6AC")),
         backgroundColor = Color(android.graphics.Color.parseColor("#90A4AE")),
         strokeWidth = 10.dp
