@@ -70,6 +70,9 @@ fun MyCaloriesApp(
                             caloriasTotales =  valorObtenido.getValue(Float::class.java)!!
                             navController.navigate(MyCaloriesScreen.ContadorScreen.name)
                         }
+                    },
+                    imc = {
+                        navController.navigate(MyCaloriesScreen.IMCscreen.name)
                     }
                 )
             }
@@ -84,6 +87,9 @@ fun MyCaloriesApp(
             }
             composable(route = MyCaloriesScreen.ContadorScreen.name) {
                 ContadorScreen(calorias = caloriasTotales)
+            }
+            composable(route = MyCaloriesScreen.IMCscreen.name) {
+                IMCscreen()
             }
         }
     }

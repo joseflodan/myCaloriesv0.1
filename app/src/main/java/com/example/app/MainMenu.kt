@@ -32,7 +32,8 @@ fun MainMenu(
     modifier: Modifier = Modifier,
     scanner: () -> Unit = {},
     ayunoInter: () -> Unit = {},
-    contador: () -> Unit = {}
+    contador: () -> Unit = {},
+    imc: () -> Unit = {},
 ) {
     val context = LocalContext.current;
     Column(
@@ -121,6 +122,8 @@ fun MainMenu(
         TextButton(
             onClick = {
                 Toast.makeText(context, "IMC precionado", Toast.LENGTH_SHORT).show()
+                imc.invoke()
+
             },
             modifier = Modifier.offset(x = screenWith / 2, y = -screenWith / 11.5f)
         ) {

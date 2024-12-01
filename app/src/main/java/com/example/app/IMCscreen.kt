@@ -5,12 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -22,27 +19,23 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.cos
+import kotlin.math.sin
 
 @Composable
-fun AyunoScreen(
+fun IMCscreen(
     modifier: Modifier = Modifier,
+    percentage: Float = 0f,
+    strokeWidth: Dp = 8.dp,
     fillColor: Color = Color(color = 0xFFa07054),
     backgroundColor: Color = Color(color =0xFF6b4a38),
-    strokeWidth: Dp = 8.dp,
-    calorias: Float = 0f
 ) {
-    val CALORIAS_PROVISIONAL = 2000F
-
     val BackgroundStartAngle = 140f
-    val BackgroundSweepAngle = 260f
     val TotalSweepAngle = 260.0
-
-    val percentage = calorias/CALORIAS_PROVISIONAL
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -61,7 +54,7 @@ fun AyunoScreen(
 
 
         val configuration = LocalConfiguration.current
-        val screenHeight = configuration.screenHeightDp.dp
+        val screenHeight = configuration.screenHeightDp.dp -20.dp
         val screenWith = configuration.screenWidthDp.dp - 30.dp
 
         Canvas(
@@ -71,12 +64,52 @@ fun AyunoScreen(
         ) {
             drawArc(
                 color = backgroundColor,
-                startAngle = BackgroundStartAngle,
-                sweepAngle = BackgroundSweepAngle,
+                startAngle = 140f,
+                sweepAngle = 84f,
                 useCenter = false,
                 style = Stroke((strokeWidth+10.dp).toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
+                topLeft = Offset(x = 0f, y = - screenHeight.value /8f)
+            )
+
+            drawArc(
+                color = fillColor,
+                startAngle = 140f,
+                sweepAngle = 84f, // ESTE SERIA EL VALOR CON EL QUE JUGAR
+                useCenter = false,
+                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 8f)
+            )
+
+            drawArc(
+                color = backgroundColor,
+                startAngle = 230f,
+                sweepAngle = 84f,
+                useCenter = false,
+                style = Stroke((strokeWidth+10.dp).toPx(), cap = StrokeCap.Round),
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 8f)
+            )
+
+            drawArc(
+                color = fillColor,
+                startAngle = 230F,
+                sweepAngle = 62f, // ESTE SERIA EL VALOR CON EL QUE JUGAR
+                useCenter = false,
+                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 8f)
+            )
+
+            drawArc(
+                color = backgroundColor,
+                startAngle = 320f,
+                sweepAngle = 84f,
+                useCenter = false,
+                style = Stroke((strokeWidth+10.dp).toPx(), cap = StrokeCap.Round),
+                size = Size(screenWith.toPx(), screenWith.toPx()),
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 8f)
             )
 
             drawArc(
@@ -86,64 +119,16 @@ fun AyunoScreen(
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 8f)
             )
         }
-        Text(
-            text = "YA ESTAS AYUNANDO!!",
-            textAlign = TextAlign.Center,
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .offset(
-                    x = screenWith / 3f - screenWith / 7,
-                    y = -screenWith / 0.9f
-                )
-        )
-
-        Text(
-            text = "TIEMPO RESTANTE",
-            textAlign = TextAlign.Center,
-            fontSize = 18.sp,
-            modifier = Modifier
-                .offset(
-                    x = screenWith / 2 - screenWith / 7,
-                    y = -screenWith / 1.9f
-                )
-        )
-
-        Text(
-            text = "HH:MM:SS",
-            textAlign = TextAlign.Center,
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .offset(
-                    x = screenWith / 2f - screenWith / 7,
-                    y = -screenWith / 2f
-                )
-        )
-        OutlinedButton(
-            onClick =  { },
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
-        ){
-            Text(
-                text = "DEJAR DE AYUNAR",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun AyunoPreview() {
-    AyunoScreen(
+fun IMCPreview() {
+    IMCscreen(
 
     )
 }

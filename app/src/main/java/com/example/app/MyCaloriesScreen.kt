@@ -6,5 +6,7 @@ enum class MyCaloriesScreen {
     SetingScreen,
     AyunoScreen,
     Scanner,
-    ContadorScreen
+    IMCscreen,
+    ContadorScreen,
+
 }
