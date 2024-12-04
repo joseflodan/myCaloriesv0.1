@@ -35,6 +35,7 @@ fun MainMenu(
     contador: () -> Unit = {},
     imc: () -> Unit = {},
     calen: () -> Unit = {},
+    alim: () -> Unit = {}
 ) {
     val context = LocalContext.current;
     Column(
@@ -154,7 +155,7 @@ fun MainMenu(
         }
         TextButton(
             onClick = {
-                Toast.makeText(context, "REGS DE ALIMENTOS presionado", Toast.LENGTH_SHORT).show()
+                alim.invoke()
             },
             modifier = Modifier.offset(x = screenWith / 2 - screenWith / 6, y = -screenWith / 28)
         ) {

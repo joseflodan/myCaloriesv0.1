@@ -76,6 +76,9 @@ fun MyCaloriesApp(
                     },
                     calen = {
                         navController.navigate(MyCaloriesScreen.Calendario.name)
+                    },
+                    alim={
+                        navController.navigate(MyCaloriesScreen.alimentos.name)
                     }
                 )
             }
@@ -96,6 +99,9 @@ fun MyCaloriesApp(
             }
             composable(route = MyCaloriesScreen.Calendario.name) {
                 Calendario()
+            }
+            composable(route = MyCaloriesScreen.alimentos.name) {
+                alimentos()
             }
         }
     }

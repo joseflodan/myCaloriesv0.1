@@ -53,7 +53,7 @@ fun IMCscreen(
 ) {
     val BackgroundStartAngle = 140f
     val TotalSweepAngle = 260.0
-    var sexo by remember { mutableStateOf(value = true) } //true -> masculino
+    var sexo by remember { mutableStateOf(value = true) } // true -> masculino
     var altura by remember { mutableStateOf(value = "") }
     var peso by remember { mutableStateOf(value = "") }
     val pattern = remember { Regex("^\\d+\$") }
@@ -257,6 +257,24 @@ fun IMCscreen(
                 fontSize = 30.sp,
                 modifier = Modifier
                     .offset(x = screenWith / 2 - screenWith / 7, y = -screenWith / 4f)
+            )
+
+            // Mostrar el estado del IMC centrado
+            val imcStatus = when {
+                imc < 17 -> "Desnutrición"
+                imc in 17.0..23.0 -> "Normal"
+                imc > 23 -> "Sobrepeso"
+                else -> "No Disponible"
+            }
+
+            Text(
+                text = imcStatus,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally) // Centrado horizontal
+                    .offset(y = 30.dp) // Ajuste de distancia hacia abajo
             )
         }
     }

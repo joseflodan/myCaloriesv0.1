@@ -78,7 +78,7 @@ fun ContadorScreen(
                 useCenter = false,
                 style = Stroke((strokeWidth+10.dp).toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 3f)
             )
 
             drawArc(
@@ -88,7 +88,7 @@ fun ContadorScreen(
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = - screenHeight.value / 2f)
+                topLeft = Offset(x = 0f, y = - screenHeight.value / 3f)
             )
         }
 
@@ -99,7 +99,7 @@ fun ContadorScreen(
             modifier = Modifier
                 .offset(
                     x = screenWith / 2 - screenWith / 7,
-                    y = -screenWith / 2.5f
+                    y = -screenWith / 3f
                 )
         )
 
@@ -110,8 +110,8 @@ fun ContadorScreen(
             fontSize = 30.sp,
             modifier = Modifier
                 .offset(
-                    x = screenWith / 2 - screenWith / 4.5f,
-                    y = -screenWith / 2.5f
+                    x = screenWith / 2 - screenWith / 7f,
+                    y = -screenWith / 3f
                 )
         )
     }
