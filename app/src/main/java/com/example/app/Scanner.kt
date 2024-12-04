@@ -7,9 +7,12 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
@@ -20,12 +23,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -119,24 +126,66 @@ fun CameraScreen(
 }
 
 @Composable
-fun ResultScreen(respuesta: FoodResult) {
-    Column {
-        Text(respuesta.product?.productName.toString())
-        Text(respuesta.product?.brands.toString())
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current).data(respuesta.product?.imageUrl).crossfade(true).build(),
-            placeholder = painterResource(R.drawable.logo),
-            contentDescription = "Descripcion de Imagen",
-            contentScale = ContentScale.FillWidth
+fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    Column (
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        Color(color = 0xFFd5bdaf),
+                        Color(color = 0xFFedede9)
+                    )
+                )
+            )
+            .padding(5.dp)
+            .fillMaxSize()
+    ){
+
+        Text(
+            text = "RESULTADO",
+            textAlign = TextAlign.Center,
+            fontSize = 18.sp,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
-        Text(respuesta.product?.nutriments?.energyKcal.toString())
+
+        if(respuesta.product?.imageUrl?.isNotEmpty() == true) {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current).data(respuesta.product?.imageUrl).crossfade(true).build(),
+                placeholder = painterResource(R.drawable.logo),
+                contentDescription = "Descripcion de Imagen",
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+
+        Text(
+            text = respuesta.product?.productName ?: "Nombre no disponible",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        Text(
+            text = respuesta.product?.brands ?: "Marca no disponible",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+
+        Text(
+            text = "Calorías: ${respuesta.product?.nutriments?.energyKcal ?: "No disponible"}",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+
         OutlinedButton(
             onClick =  {
                 try{
                    val calorias = respuesta.product?.nutriments?.energyKcal?.toFloat()
                     calorias?.let { registrarCalorias(it) }
                 } catch (_: Exception){}
+                Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()
             },
             modifier = Modifier
                 .padding(10.dp)

@@ -34,6 +34,7 @@ fun MainMenu(
     ayunoInter: () -> Unit = {},
     contador: () -> Unit = {},
     imc: () -> Unit = {},
+    calen: () -> Unit = {},
 ) {
     val context = LocalContext.current;
     Column(
@@ -51,7 +52,7 @@ fun MainMenu(
             .fillMaxSize()
     ) {
         val ArcColor = Color(0xFF60483a)
-
+        val colorIconos = Color(color = 0xFFa07054)
         val configuration = LocalConfiguration.current
         val screenHeight = configuration.screenHeightDp.dp
         val screenWith = configuration.screenWidthDp.dp
@@ -85,7 +86,8 @@ fun MainMenu(
         ) {
             Icon(
                 painter = painterResource(R.drawable.button1),
-                contentDescription = null
+                contentDescription = null,
+                tint = colorIconos
             )
             Text(text = "AYUNO INTERMITENTE", color = Color.Black)
         }
@@ -98,7 +100,8 @@ fun MainMenu(
         ) {
             Icon(
                 painter = painterResource(R.drawable.button1),
-                contentDescription = null
+                contentDescription = null,
+                tint = colorIconos
             )
             Text(text = " CONTADOR", color = Color.Black)
         }
@@ -114,7 +117,8 @@ fun MainMenu(
         ) {
             Icon(
                 painter = painterResource(R.drawable.button1),
-                contentDescription = null
+                contentDescription = null,
+                tint = colorIconos
             )
             Text(text = " SCANER", color = Color.Black)
         }
@@ -129,20 +133,22 @@ fun MainMenu(
         ) {
             Icon(
                 painter = painterResource(R.drawable.button1),
-                contentDescription = null
+                contentDescription = null,
+                tint = colorIconos
             )
             Text(text = " IMC", color = Color.Black)
         }
 
         TextButton(
             onClick = {
-                Toast.makeText(context, "CALENDARIO presionado", Toast.LENGTH_SHORT).show()
+                calen.invoke()
             },
             modifier = Modifier.offset(x = screenWith / 2.25f, y = -screenWith / 18)
         ) {
             Icon(
                 painter = painterResource(R.drawable.button1),
-                contentDescription = null
+                contentDescription = null,
+                tint = colorIconos
             )
             Text(text = " CALENDARIO", color = Color.Black)
         }
@@ -154,7 +160,8 @@ fun MainMenu(
         ) {
             Icon(
                 painter = painterResource(R.drawable.button1),
-                contentDescription = null
+                contentDescription = null,
+                tint = colorIconos
             )
             Text(text = " REGIS DE ALIMENTOS", color = Color.Black)
         }

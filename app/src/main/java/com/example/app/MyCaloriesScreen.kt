@@ -8,5 +8,5 @@ enum class MyCaloriesScreen {
     Scanner,
     IMCscreen,
     ContadorScreen,
-
+    Calendario,
 }

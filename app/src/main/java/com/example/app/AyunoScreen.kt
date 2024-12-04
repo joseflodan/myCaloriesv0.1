@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
@@ -136,6 +137,10 @@ fun AyunoScreen(
                 fontWeight = FontWeight.Bold
             )
         }
+        Text(
+            text = "INICIO"
+        )
+        TextField(value = "", onValueChange = {})
 
     }
 }

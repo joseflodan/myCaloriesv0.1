@@ -73,6 +73,9 @@ fun MyCaloriesApp(
                     },
                     imc = {
                         navController.navigate(MyCaloriesScreen.IMCscreen.name)
+                    },
+                    calen = {
+                        navController.navigate(MyCaloriesScreen.Calendario.name)
                     }
                 )
             }
@@ -90,6 +93,9 @@ fun MyCaloriesApp(
             }
             composable(route = MyCaloriesScreen.IMCscreen.name) {
                 IMCscreen()
+            }
+            composable(route = MyCaloriesScreen.Calendario.name) {
+                Calendario()
             }
         }
     }
