@@ -66,8 +66,8 @@ fun MyCaloriesApp(
                         val reference = Firebase.database.getReference("usuarios")
                         val idReference = reference.child(MyApp.USER_ID).child("calorias")
 
-                        idReference.get().addOnSuccessListener {valorObtenido ->
-                            caloriasTotales =  valorObtenido.getValue(Float::class.java)!!
+                        idReference.get().addOnSuccessListener { valorObtenido ->
+                            caloriasTotales = valorObtenido.getValue(Float::class.java) ?: 0.0f // Default to 0.0f if null
                             navController.navigate(MyCaloriesScreen.ContadorScreen.name)
                         }
                     },
