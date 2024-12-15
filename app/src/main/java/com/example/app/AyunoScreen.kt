@@ -3,13 +3,10 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,17 +19,19 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.chargemap.compose.numberpicker.FullHours
+import com.chargemap.compose.numberpicker.Hours
+import com.chargemap.compose.numberpicker.HoursNumberPicker
+import com.chargemap.compose.numberpicker.NumberPicker
 import kotlinx.coroutines.delay
 
 @Composable
 fun AyunoScreen() {
-    var duration by remember { mutableStateOf("00:00") }
+    var pickerValue by remember { mutableStateOf<Hours>(FullHours(0, 0)) }
     var displayTime by remember { mutableStateOf("00:00:00") }
     var isAyunoActive by remember { mutableStateOf(false) }
     var progress by remember { mutableStateOf(0f) }
@@ -56,7 +55,7 @@ fun AyunoScreen() {
     }
 
     fun resetAyuno() {
-        duration = "00:00"
+        pickerValue = FullHours(0, 0)
         displayTime = "00:00:00"
         isAyunoActive = false
         progress = 0f
@@ -64,6 +63,7 @@ fun AyunoScreen() {
 
     LaunchedEffect(isAyunoActive) {
         if (isAyunoActive) {
+            val duration = "${pickerValue.hours}:${pickerValue.minutes}"
             val durationInMillis = parseTimeToMillis(duration)
             var timeRemaining = durationInMillis
 
@@ -139,6 +139,7 @@ fun AyunoScreen() {
 
         Spacer(modifier = Modifier.height(32.dp))
 
+
         // Mostrar el temporizador
         Text(
             text = displayTime,
@@ -149,35 +150,37 @@ fun AyunoScreen() {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Input para la duración del ayuno
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            TextField(
-                value = duration,
-                onValueChange = {
-                    if (it.length <= 5) {
-                        duration = it
-                    }
-                },
-                label = { Text("Duración (HH:MM)") },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                modifier = Modifier.weight(1f)
-            )
-        }
+        Text("Duración (HH:MM)")
+
+        HoursNumberPicker(
+            dividersColor = Color(0xFFa07054),
+            leadingZero = true,
+            value = pickerValue,
+            onValueChange = {
+                pickerValue = it
+            },
+            hoursDivider = {
+                Text(
+                    modifier = Modifier.size(24.dp),
+                    textAlign = TextAlign.Center,
+                    text = ":"
+                )
+            }
+        )
+
 
         Spacer(modifier = Modifier.height(32.dp))
         // Botón para iniciar el ayuno
         Button(
             onClick = {
-                if (duration.isNotEmpty()) {
-                    val durationInMillis = parseTimeToMillis(duration)
+                val duration = "${pickerValue.hours}:${pickerValue.minutes}"
+                val durationInMillis = parseTimeToMillis(duration)
 
-                    if (durationInMillis > 0) {
-                        isAyunoActive = true
-                    } else {
-                        displayTime = "Tiempo inválido"
-                    }
+
+                if (durationInMillis > 0) {
+                    isAyunoActive = true
                 } else {
-                    displayTime = "Rellena el campo"
+                    displayTime = "Tiempo inválido"
                 }
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFa07054)) // Color del botón
