@@ -5,14 +5,12 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -37,7 +35,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app.model.User
+import com.example.app.data.User
 import com.example.app.ui.theme.AppTheme
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -213,7 +211,7 @@ fun Login(
                         Toast.makeText(context, "Confirmar contrasena vacia", Toast.LENGTH_SHORT)
                             .show()
                     }else{
-                        val user = User(correo, nombreUsua, contra, selectedText)
+                        val user = User(email = correo, name = nombreUsua, password = contra, condicion =  selectedText)
                         validarUsuario(context, user, nexScreen)}
                 }
         },

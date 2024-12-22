@@ -91,4 +91,9 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.numberpicker)
 
+    //Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+
+
 }
