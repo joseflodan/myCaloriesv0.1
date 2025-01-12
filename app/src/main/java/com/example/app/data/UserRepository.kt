@@ -9,7 +9,7 @@ interface UserRepository {
 
     suspend fun delete(user: User)
 
-    fun getUsers(email: Int): Flow<User>
+    fun getUsers(email: String): User
 
     fun getAllItems(): Flow<List<User>>
 }

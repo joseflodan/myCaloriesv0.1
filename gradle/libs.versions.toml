@@ -5,12 +5,13 @@ coilComposeVersion = "2.4.0"
 gms = "4.4.2"
 firebaseBom = "33.5.1"
 numberpickerVersion = "1.0.3"
+roomCompilerVersion = "2.6.1"
 roomRuntimeVersion = "2.6.1"
 serialization = "1.8.10"
 androidxCameraCamera2 = "1.2.2"
 barcodeScanningVersion = "17.1.0"
 converterScalarsVersion = "2.9.0"
-kotlin = "1.9.0"
+kotlin = "2.0.21"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -24,12 +25,14 @@ navigationCompose = "2.8.2"
 retrofit2KotlinxSerializationConverterVersion = "1.0.0"
 okhttpVersion = "4.11.0"
 retrofitVersion = "2.9.0"
+ksp = "2.0.21-1.0.27"
 
 [libraries]
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "androidxCameraCamera2" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "androidxCameraCamera2" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "androidxCameraCamera2" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompilerVersion" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntimeVersion" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntimeVersion" }
 barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcodeScanningVersion" }
@@ -65,4 +68,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization"}
 google-services = {id = "com.google.gms.google-services", version.ref = "gms"}
-
+kotlin-ksp = {id= "com.google.devtools.ksp", version.ref = "ksp"}
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

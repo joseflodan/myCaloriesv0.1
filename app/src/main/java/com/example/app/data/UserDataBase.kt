@@ -18,6 +18,7 @@ abstract class UserDataBase: RoomDatabase() {
         fun getDataBase(context: Context): UserDataBase {
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(context, UserDataBase::class.java, "database")
+                    .allowMainThreadQueries()
                     .build()
                     .also { Instance = it }
             }

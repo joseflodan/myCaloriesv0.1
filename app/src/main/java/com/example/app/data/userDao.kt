@@ -21,7 +21,7 @@ interface userDao {
     suspend fun delete(user: User)
 
     @Query("SELECT * FROM users WHERE email = :email")
-    fun getUsers(email: Int): Flow<User>
+    fun getUsers(email: String): User
 
     @Query("SELECT * from users ORDER BY name ASC")
     fun getAllUsers(): Flow<List<User>>

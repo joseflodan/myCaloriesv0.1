@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,17 +36,23 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.app.data.User
 import com.example.app.ui.theme.AppTheme
+import com.example.app.viewmodel.AppViewModelProvider
+import com.example.app.viewmodel.OffLineUserViewModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 import java.util.UUID
+import kotlin.coroutines.coroutineContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Login(
     modifierExt: Modifier = Modifier,
-    nexScreen: () -> Unit ={}
+    nexScreen: () -> Unit ={},
+    viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val context = LocalContext.current
     var switchEncendido by remember { mutableStateOf(value = true) }
@@ -64,6 +71,8 @@ fun Login(
             R.string.registrarse
         }
     )
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifierExt
@@ -193,12 +202,14 @@ fun Login(
 
                 if (switchEncendido){
                     // INICIAR SESION
-                    leerUsuario(
-                        context = context,
-                        email = correo,
-                        password = contra,
-                        nextScreen = nexScreen
-                    )
+                    coroutineScope.launch {
+                        val sesion = viewModel.leerUsuario(email = correo, password = contra)
+                        if(sesion.pasar){
+                            nexScreen.invoke()
+                        }else{
+                            Toast.makeText(context,sesion.mensaje,Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }else{
                     // REGISTRARSE
                     if(correo.isEmpty()){
@@ -212,8 +223,20 @@ fun Login(
                             .show()
                     }else{
                         val user = User(email = correo, name = nombreUsua, password = contra, condicion =  selectedText)
-                        validarUsuario(context, user, nexScreen)}
-                }
+                        coroutineScope.launch {
+                           val seGuardo =  viewModel.validarUsuario(user = user)
+                            if (seGuardo){
+                                Toast.makeText(context, "Usuario creado",Toast.LENGTH_SHORT).show()
+                                nexScreen.invoke()
+                            } else
+                            {
+                                Toast.makeText(context, "El correo ya existe",Toast.LENGTH_SHORT).show()
+                            }
+                            }
+                        }
+                       // validarUsuario(context, user, nexScreen)
+                    }
+
         },
             modifier = Modifier
                 .padding(10.dp)

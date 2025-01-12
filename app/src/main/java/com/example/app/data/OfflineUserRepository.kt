@@ -15,7 +15,7 @@ class OfflineUserRepository (private val userDao: userDao): UserRepository {
         userDao.delete(user)
     }
 
-    override fun getUsers(email: Int): Flow<User> {
+    override fun getUsers(email: String): User {
         return userDao.getUsers(email)
     }
 
