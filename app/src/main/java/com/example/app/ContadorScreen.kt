@@ -25,6 +25,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.app.viewmodel.AppViewModelProvider
+import com.example.app.viewmodel.OffLineUserViewModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.math.cos
@@ -36,13 +39,16 @@ fun ContadorScreen(
     fillColor: Color = Color(color = 0xFFa07054),
     backgroundColor: Color = Color(color =0xFF6b4a38),
     strokeWidth: Dp = 8.dp,
-    calorias: Float = 0f
+    viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val CALORIAS_PROVISIONAL = 2000F
 
     val BackgroundStartAngle = 140f
     val BackgroundSweepAngle = 260f
     val TotalSweepAngle = 260.0
+
+    val calorias = viewModel.getCalorias(MyApp.EMAIL)
+
 
     val percentage = calorias/CALORIAS_PROVISIONAL
 

@@ -53,7 +53,6 @@ fun MyCaloriesApp(
                 MainMenu()
             }
 
-            var caloriasTotales = 0F
             composable(route = MyCaloriesScreen.MainMenu.name){
                 MainMenu(
                     scanner = {
@@ -63,13 +62,7 @@ fun MyCaloriesApp(
                         navController.navigate(MyCaloriesScreen.AyunoScreen.name)
                     },
                     contador = {
-                        val reference = Firebase.database.getReference("usuarios")
-                        val idReference = reference.child(MyApp.EMAIL).child("calorias")
-
-                        idReference.get().addOnSuccessListener { valorObtenido ->
-                            caloriasTotales = valorObtenido.getValue(Float::class.java) ?: 0.0f // Default to 0.0f if null
-                            navController.navigate(MyCaloriesScreen.ContadorScreen.name)
-                        }
+                        navController.navigate(MyCaloriesScreen.ContadorScreen.name)
                     },
                     imc = {
                         navController.navigate(MyCaloriesScreen.IMCscreen.name)
@@ -92,7 +85,7 @@ fun MyCaloriesApp(
                 AyunoScreen()
             }
             composable(route = MyCaloriesScreen.ContadorScreen.name) {
-                ContadorScreen(calorias = caloriasTotales)
+                ContadorScreen()
             }
             composable(route = MyCaloriesScreen.IMCscreen.name) {
                 IMCscreen()

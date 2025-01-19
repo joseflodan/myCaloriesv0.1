@@ -42,4 +42,9 @@ class OffLineUserViewModel (private val userRepository: UserRepository): ViewMod
         user.calorias = calories
         userRepository.update(user)
     }
+
+    fun getCalorias(email: String): Double {
+        val user = userRepository.getUsers(email)
+        return user.calorias
+    }
 }
