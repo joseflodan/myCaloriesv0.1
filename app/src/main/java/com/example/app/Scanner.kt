@@ -45,6 +45,7 @@ import com.example.app.model.Product
 import com.example.app.viewmodel.AppViewModelProvider
 import com.example.app.viewmodel.FoodApiViewModel
 import com.example.app.viewmodel.OffLineProductViewModel
+import com.example.app.viewmodel.OffLineUserViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -84,6 +85,7 @@ fun Scanner(
             val product = viewModel.getProduct(codigoCapturdo)
             if (product != null){ //ya esta en la bd
                 marsViewModel.respuesta = FoodResult(
+                    code = product.barcode,
                     product = Product(
                         brands = product.brands,
                         imageUrl = product.imageUrl,
@@ -145,8 +147,12 @@ fun CameraScreen(
 }
 
 @Composable
-fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier) {
+fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
+                 viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
+) {
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
     Column (
         verticalArrangement = Arrangement.Center,
         modifier = modifier
@@ -200,11 +206,18 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier) {
 
         OutlinedButton(
             onClick =  {
+                coroutineScope.launch {
+                    val calorias = respuesta.product?.nutriments?.energyKcal
+                    calorias?.let{
+                        viewModel.updateCalories(MyApp.EMAIL,calorias)
+                    }
+                }
+                Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()
+/*
                 try{
-                   val calorias = respuesta.product?.nutriments?.energyKcal?.toFloat()
-                    calorias?.let { registrarCalorias(it) }
                 } catch (_: Exception){}
                 Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()
+ */
             },
             modifier = Modifier
                 .padding(10.dp)
@@ -218,7 +231,7 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier) {
 
 fun registrarCalorias(calorias : Float){
     val reference = Firebase.database.getReference("usuarios")
-    val idReference = reference.child(MyApp.USER_ID).child("calorias")
+    val idReference = reference.child(MyApp.EMAIL).child("calorias")
 
     //OPTENER CALORIAS ANTERIORES
     var caloriasTotales = 0F

@@ -6,7 +6,9 @@ import com.example.app.data.AppDataContainer
 import com.google.firebase.FirebaseApp
 
 class MyApp: Application() {
-    companion object{  var USER_ID = ""}
+    companion object{
+        var EMAIL = ""
+    }
 
 
     lateinit var container: AppContainer

@@ -12,5 +12,5 @@ data class User(
     val name: String = "",
     val password: String = "",
     val condicion: String = "",
-    val calorias: Double = 0.0
+    var calorias: Double = 0.0
 )

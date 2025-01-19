@@ -37,4 +37,9 @@ class OffLineUserViewModel (private val userRepository: UserRepository): ViewMod
             }
         }
     }
+    suspend fun updateCalories (email: String, calories: Double){
+        val user = userRepository.getUsers(email)
+        user.calorias = calories
+        userRepository.update(user)
+    }
 }

@@ -204,6 +204,7 @@ fun Login(
                     coroutineScope.launch {
                         val sesion = viewModel.leerUsuario(email = correo, password = contra)
                         if(sesion.pasar){
+                            MyApp.EMAIL = correo;
                             nexScreen.invoke()
                         }else{
                             Toast.makeText(context,sesion.mensaje,Toast.LENGTH_SHORT).show()
@@ -226,6 +227,7 @@ fun Login(
                            val seGuardo =  viewModel.validarUsuario(user = user)
                             if (seGuardo){
                                 Toast.makeText(context, "Usuario creado",Toast.LENGTH_SHORT).show()
+                                MyApp.EMAIL = correo;
                                 nexScreen.invoke()
                             } else
                             {
@@ -269,7 +271,7 @@ private fun leerUsuario(context: Context, email: String, password: String, nextS
         if (filtered.isEmpty()){
             Toast.makeText(context, "Usuario no existe",Toast.LENGTH_SHORT).show()
         } else {
-            MyApp.USER_ID = filtered.get(0).key.toString()
+            MyApp.EMAIL = filtered.get(0).key.toString()
             val user = filtered.get(0).getValue(User::class.java)
             if (user?.password.equals(password,true)){
                 nextScreen.invoke()

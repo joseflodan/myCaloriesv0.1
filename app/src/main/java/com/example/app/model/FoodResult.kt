@@ -3,6 +3,7 @@ package com.example.app.model
 import com.google.gson.annotations.SerializedName
 
 data class FoodResult(
+    @SerializedName("code") var code: String? = null,
     @SerializedName("product") var product: Product? = Product()
 )
 
