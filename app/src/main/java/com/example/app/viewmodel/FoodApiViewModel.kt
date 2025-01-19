@@ -14,10 +14,9 @@ import kotlinx.coroutines.launch
 
 class FoodApiViewModel: ViewModel() {
     var respuesta: FoodResult by mutableStateOf(FoodResult())
-        private set
 
-    fun getFoodProduct(id: String){
-        viewModelScope.launch {
+
+    suspend fun getFoodProduct(id: String){
             try{
                 respuesta = FoodApi.retrofitService.getProduct(id)
             }catch (e: Exception) {
@@ -25,6 +24,5 @@ class FoodApiViewModel: ViewModel() {
                 respuesta = FoodResult()
                 respuesta.product = Product("no encontrado", "no encontrado","no encontrado", Nutriments(0.0))
             }
-        }
     }
 }

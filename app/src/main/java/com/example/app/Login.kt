@@ -37,7 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.app.data.User
+import com.example.app.data.user.User
 import com.example.app.ui.theme.AppTheme
 import com.example.app.viewmodel.AppViewModelProvider
 import com.example.app.viewmodel.OffLineUserViewModel
@@ -45,7 +45,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.util.UUID
-import kotlin.coroutines.coroutineContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

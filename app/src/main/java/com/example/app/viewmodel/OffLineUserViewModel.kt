@@ -1,13 +1,8 @@
 package com.example.app.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.app.data.User
-import com.example.app.data.UserDataBase
-import com.example.app.data.UserRepository
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
+import com.example.app.data.user.User
+import com.example.app.data.user.UserRepository
 
 class OffLineUserViewModel (private val userRepository: UserRepository): ViewModel() {
 
@@ -18,14 +13,14 @@ class OffLineUserViewModel (private val userRepository: UserRepository): ViewMod
     suspend fun validarUsuario(user : User): Boolean{
 
         val recoverUser = userRepository.getUsers(user.email)
-            if(recoverUser == null){ //si el correo no esta registrado se debe guardar el usuario
-                guardarsuario(user)
-                return true
-            }
-            else{
-                return false
-            }
+        if(recoverUser == null){ //si el correo no esta registrado se debe guardar el usuario
+            guardarsuario(user)
+            return true
         }
+        else{
+            return false
+        }
+    }
 
     data class RespuestaSesion(val pasar : Boolean, val mensaje : String = "")
 

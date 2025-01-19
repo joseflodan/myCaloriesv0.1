@@ -21,6 +21,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,22 +40,28 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.app.model.FoodResult
+import com.example.app.model.Nutriments
+import com.example.app.model.Product
+import com.example.app.viewmodel.AppViewModelProvider
 import com.example.app.viewmodel.FoodApiViewModel
+import com.example.app.viewmodel.OffLineProductViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun Scanner(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: OffLineProductViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ){
     var codigoCapturdo by remember { mutableStateOf(value = "") }
     val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
-
+    val coroutineScope = rememberCoroutineScope()
     val marsViewModel: FoodApiViewModel = viewModel()
 
     if (codigoCapturdo.isEmpty()){
@@ -73,8 +80,22 @@ fun Scanner(
             Text("No Camera Permission")
         }
     }else{
-        val marsViewModel: FoodApiViewModel = viewModel()
-        marsViewModel.getFoodProduct(codigoCapturdo)
+        coroutineScope.launch{
+            val product = viewModel.getProduct(codigoCapturdo)
+            if (product != null){ //ya esta en la bd
+                marsViewModel.respuesta = FoodResult(
+                    product = Product(
+                        brands = product.brands,
+                        imageUrl = product.imageUrl,
+                        productName = product.productName,
+                        nutriments = Nutriments(product.energyKcal)
+                    )
+                )
+            }else { //no esta en la bd
+                    marsViewModel.getFoodProduct(codigoCapturdo)
+                    viewModel.guardarProducto(marsViewModel.respuesta,codigoCapturdo)
+            }
+        }
         ResultScreen(marsViewModel.respuesta)
     }
 }

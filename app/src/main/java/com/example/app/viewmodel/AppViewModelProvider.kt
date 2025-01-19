@@ -11,6 +11,9 @@ object AppViewModelProvider{
         initializer {
             OffLineUserViewModel(myApp().container.userRepository)
         }
+        initializer {
+            OffLineProductViewModel(myApp().container.productRepository)
+        }
     }
 
 }
