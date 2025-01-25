@@ -257,14 +257,14 @@ fun Login(
 private fun guardArEMAIL (context: Context, email: String){
     val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
     with(sharedPref.edit()){
-        putString("email" , "este_va_a ser_el_uktimo_usuario")
+        putString("email" , email)
         apply()
     }
 }
 
 private fun recuperarEMAIL (context: Context): String?{
     val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
-    return sharedPref.getString("email"," ")
+    return sharedPref.getString("email","")
 }
 
 private fun registrarUsuario(usuario: User){

@@ -48,6 +48,7 @@ fun MyCaloriesApp(
             modifier = Modifier.padding(innerPadding)
         ){
             composable(route = MyCaloriesScreen.Login.name) {
+                backButton = false
                 Login(
                     nexScreen = {
                         navController.navigate(MyCaloriesScreen.MainMenu.name){
@@ -81,7 +82,13 @@ fun MyCaloriesApp(
             }
             composable(route = MyCaloriesScreen.SetingScreen.name) {
                 backButton = true
-                SetingScreen()
+                SetingScreen(
+                    cerrarSesion = {
+                        navController.navigate(MyCaloriesScreen.Login.name){
+                            popUpTo(0)
+                        }
+                    }
+                )
             }
             composable(route = MyCaloriesScreen.Scanner.name) {
                 backButton = true
@@ -117,7 +124,8 @@ fun MyCaloriesAppBar(
     canNavgateBack: Boolean,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    settings: () -> Unit = {}
+    settings: () -> Unit = {},
+    cierreSecion: () -> Unit = {}
 ){
     TopAppBar(
         title = {

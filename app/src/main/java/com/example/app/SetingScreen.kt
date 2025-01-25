@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,9 +25,11 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun SetingScreen(
     modifier: Modifier = Modifier,
-    nexScreen: () -> Unit = {}
+    cerrarSesion: () -> Unit = {}
 
 ){
+    val context = LocalContext.current
+
     val titulo = stringResource(R.string.titulo_screen1)
     Column(
         verticalArrangement = Arrangement.Center,
@@ -66,7 +70,10 @@ fun SetingScreen(
             Text(text= "AYUDA", color = Color.Black,fontSize = 20.sp)
         }
         OutlinedButton(
-            onClick = {},
+            onClick = {
+                borrarEMAIL(context)
+                cerrarSesion.invoke()
+            },
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
@@ -94,6 +101,16 @@ fun SetingScreen(
         }
     }
 }
+
+
+private fun borrarEMAIL (context: Context){
+    val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
+    with(sharedPref.edit()){
+        remove("email")
+        apply()
+    }
+}
+
 @Preview (showBackground = true)
 @Composable
 fun SetingPreview (){

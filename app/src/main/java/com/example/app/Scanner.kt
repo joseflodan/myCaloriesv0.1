@@ -233,5 +233,5 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
 
 private fun recuperarEMAIL (context: Context): String?{
     val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
-    return sharedPref.getString("email"," ")
+    return sharedPref.getString("email","")
 }
