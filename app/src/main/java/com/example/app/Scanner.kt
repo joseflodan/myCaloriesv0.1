@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
@@ -209,7 +210,8 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
                 coroutineScope.launch {
                     val calorias = respuesta.product?.nutriments?.energyKcal
                     calorias?.let{
-                        viewModel.updateCalories(MyApp.EMAIL,calorias)
+                        val email = recuperarEMAIL(context).toString()
+                        viewModel.updateCalories(email,calorias)
                     }
                 }
                 Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()
@@ -229,16 +231,7 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
     }
 }
 
-fun registrarCalorias(calorias : Float){
-    val reference = Firebase.database.getReference("usuarios")
-    val idReference = reference.child(MyApp.EMAIL).child("calorias")
-
-    //OPTENER CALORIAS ANTERIORES
-    var caloriasTotales = 0F
-    idReference.get().addOnSuccessListener {valorObtenido ->
-       caloriasTotales =  valorObtenido.getValue(Float::class.java)!!
-        caloriasTotales += calorias
-        //REGISTRAR CALORIAS FINALES
-        idReference.setValue(caloriasTotales)
-    }
+private fun recuperarEMAIL (context: Context): String?{
+    val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
+    return sharedPref.getString("email"," ")
 }

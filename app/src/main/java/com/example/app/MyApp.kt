@@ -7,7 +7,7 @@ import com.google.firebase.FirebaseApp
 
 class MyApp: Application() {
     companion object{
-        var EMAIL = ""
+        val PREFERENCIAS = "savedata"
     }
 
 

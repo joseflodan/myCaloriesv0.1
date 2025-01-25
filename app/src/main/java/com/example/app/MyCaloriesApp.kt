@@ -12,6 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -26,10 +30,11 @@ import com.google.firebase.ktx.Firebase
 fun MyCaloriesApp(
     navController: NavHostController = rememberNavController()
 ){
+    var backButton by remember { mutableStateOf(value = false) }
     Scaffold (
         topBar = {
             MyCaloriesAppBar(
-                canNavgateBack = true,
+                canNavgateBack = backButton,
                 navigateUp = { navController.navigateUp()},
                 settings = {
                     navController.navigate(MyCaloriesScreen.SetingScreen.name)
@@ -45,15 +50,14 @@ fun MyCaloriesApp(
             composable(route = MyCaloriesScreen.Login.name) {
                 Login(
                     nexScreen = {
-                        navController.navigate(MyCaloriesScreen.MainMenu.name)
+                        navController.navigate(MyCaloriesScreen.MainMenu.name){
+                            popUpTo(0)
+                        }
                     }
                 )
             }
-            composable(route = MyCaloriesScreen.MainMenu.name) {
-                MainMenu()
-            }
-
             composable(route = MyCaloriesScreen.MainMenu.name){
+                backButton = false
                 MainMenu(
                     scanner = {
                         navController.navigate(MyCaloriesScreen.Scanner.name)
@@ -76,24 +80,31 @@ fun MyCaloriesApp(
                 )
             }
             composable(route = MyCaloriesScreen.SetingScreen.name) {
+                backButton = true
                 SetingScreen()
             }
             composable(route = MyCaloriesScreen.Scanner.name) {
+                backButton = true
                 Scanner()
             }
             composable(route = MyCaloriesScreen.AyunoScreen.name) {
+                backButton = true
                 AyunoScreen()
             }
             composable(route = MyCaloriesScreen.ContadorScreen.name) {
+                backButton = true
                 ContadorScreen()
             }
             composable(route = MyCaloriesScreen.IMCscreen.name) {
+                backButton = true
                 IMCscreen()
             }
             composable(route = MyCaloriesScreen.Calendario.name) {
+                backButton = true
                 Calendario()
             }
             composable(route = MyCaloriesScreen.alimentos.name) {
+                backButton = true
                 alimentos()
             }
         }

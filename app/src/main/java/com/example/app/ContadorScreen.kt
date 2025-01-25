@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.content.Context
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -46,8 +48,10 @@ fun ContadorScreen(
     val BackgroundStartAngle = 140f
     val BackgroundSweepAngle = 260f
     val TotalSweepAngle = 260.0
+    val context = LocalContext.current
+    val email = recuperarEMAIL(context).toString()
 
-    val calorias = viewModel.getCalorias(MyApp.EMAIL)
+    val calorias = viewModel.getCalorias(email)
 
 
     val percentage = calorias/CALORIAS_PROVISIONAL
@@ -121,6 +125,11 @@ fun ContadorScreen(
                 )
         )
     }
+}
+
+private fun recuperarEMAIL (context: Context): String?{
+    val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
+    return sharedPref.getString("email"," ")
 }
 
 @Preview(showBackground = true)

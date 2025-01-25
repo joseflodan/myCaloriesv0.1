@@ -54,6 +54,7 @@ fun Login(
     viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val context = LocalContext.current
+
     var switchEncendido by remember { mutableStateOf(value = true) }
     var correo by remember { mutableStateOf(value = "") }
     var nombreUsua by remember { mutableStateOf(value = "") }
@@ -72,6 +73,10 @@ fun Login(
     )
     val coroutineScope = rememberCoroutineScope()
 
+    val usuarioLogeado = recuperarEMAIL(context)
+    if (usuarioLogeado != null && usuarioLogeado.isNotEmpty()) {
+        nexScreen.invoke()
+    }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifierExt
@@ -204,7 +209,7 @@ fun Login(
                     coroutineScope.launch {
                         val sesion = viewModel.leerUsuario(email = correo, password = contra)
                         if(sesion.pasar){
-                            MyApp.EMAIL = correo;
+                            guardArEMAIL(context, correo)
                             nexScreen.invoke()
                         }else{
                             Toast.makeText(context,sesion.mensaje,Toast.LENGTH_SHORT).show()
@@ -227,7 +232,7 @@ fun Login(
                            val seGuardo =  viewModel.validarUsuario(user = user)
                             if (seGuardo){
                                 Toast.makeText(context, "Usuario creado",Toast.LENGTH_SHORT).show()
-                                MyApp.EMAIL = correo;
+                                guardArEMAIL(context, correo)
                                 nexScreen.invoke()
                             } else
                             {
@@ -249,37 +254,25 @@ fun Login(
     }
 }
 
+private fun guardArEMAIL (context: Context, email: String){
+    val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
+    with(sharedPref.edit()){
+        putString("email" , "este_va_a ser_el_uktimo_usuario")
+        apply()
+    }
+}
+
+private fun recuperarEMAIL (context: Context): String?{
+    val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
+    return sharedPref.getString("email"," ")
+}
+
 private fun registrarUsuario(usuario: User){
     val reference = Firebase.database.getReference("usuarios")
 
     var uniqueID = UUID.randomUUID().toString()
     val idReference = reference.child(uniqueID)
     idReference.setValue(usuario)
-}
-
-private fun leerUsuario(context: Context, email: String, password: String, nextScreen: () -> Unit ={}){
-    val reference = Firebase.database.getReference("usuarios")
-
-    reference.get().addOnSuccessListener {
-        val filtered = it.children.filter {
-            it.getValue(User::class.java)?.email.equals(
-                email
-                ,true
-            )
-        }
-
-        if (filtered.isEmpty()){
-            Toast.makeText(context, "Usuario no existe",Toast.LENGTH_SHORT).show()
-        } else {
-            MyApp.EMAIL = filtered.get(0).key.toString()
-            val user = filtered.get(0).getValue(User::class.java)
-            if (user?.password.equals(password,true)){
-                nextScreen.invoke()
-            } else {
-                Toast.makeText(context, "Contraseña incorrecta",Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 }
 
 private fun validarUsuario(context: Context, usuario: User, nextScreen: () -> Unit ={}){
