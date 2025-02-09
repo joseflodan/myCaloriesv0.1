@@ -43,18 +43,18 @@ fun ContadorScreen(
     strokeWidth: Dp = 8.dp,
     viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val CALORIAS_PROVISIONAL = 2000F
-
     val BackgroundStartAngle = 140f
     val BackgroundSweepAngle = 260f
     val TotalSweepAngle = 260.0
     val context = LocalContext.current
     val email = recuperarEMAIL(context).toString()
 
+    val tmb = viewModel.getTMB(email)
+
     val calorias = viewModel.getCalorias(email)
 
 
-    val percentage = calorias/CALORIAS_PROVISIONAL
+    val percentage = calorias/tmb
 
     Column(
         verticalArrangement = Arrangement.Center,
