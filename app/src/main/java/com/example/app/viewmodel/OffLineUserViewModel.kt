@@ -1,6 +1,7 @@
 package com.example.app.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.example.app.MyApp.Companion.EJERCICIO
 import com.example.app.data.user.User
 import com.example.app.data.user.UserRepository
 
@@ -52,5 +53,46 @@ class OffLineUserViewModel (private val userRepository: UserRepository): ViewMod
     fun getCalorias(email: String): Double {
         val user = userRepository.getUsers(email)
         return user.calorias
+    }
+
+    suspend fun guardarDatos(
+        email: String,
+        sexo: Boolean,
+        altura: String,
+        peso: String,
+        edad: String,
+        imc: Float,
+        ejercicioSeleccionado: String
+    ) {
+        val user = userRepository.getUsers(email)
+        user.sexo = sexo
+        user.altura = altura.toInt()
+        user.peso = peso.toInt()
+        user.edad = edad.toInt()
+        user.imc = imc.toDouble()
+        user.frecuencia = ejercicioSeleccionado
+        user.tmb = calcularTMB(sexo,altura.toDouble(),peso.toDouble(),edad.toDouble(), ejercicioSeleccionado.toString())
+
+        userRepository.update(user)
+    }
+
+    private fun calcularTMB(sexo: Boolean, altura: Double, peso: Double, edad:  Double, ejercicioSeleccionado: String): Double {
+        var tmb = 10 * peso + 6.25 * altura - 5 * edad
+
+        tmb = if (sexo){//hombre
+            tmb + 5
+        }else{//mujer
+            tmb - 161
+        }
+
+        tmb = when(ejercicioSeleccionado){
+            EJERCICIO[0] -> tmb * 1.2
+            EJERCICIO[1] -> tmb * 1.375
+            EJERCICIO[2] -> tmb * 1.55
+            EJERCICIO[3] -> tmb * 1.725
+            EJERCICIO[4] -> tmb * 1.9
+            else -> tmb
+        }
+        return tmb
     }
 }

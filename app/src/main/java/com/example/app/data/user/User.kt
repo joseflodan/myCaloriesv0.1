@@ -13,5 +13,11 @@ data class User(
     val password: String = "",
     val condicion: String = "",
     var calorias: Double = 0.0,
-    var imc: Double = 0.0
+    var imc: Double = 0.0,
+    var tmb: Double = 0.0,
+    var altura: Int = 0,
+    var peso: Int = 0,
+    var edad: Int = 0,
+    var sexo: Boolean = true, // true -> masculino
+    var frecuencia: String = ""
 )

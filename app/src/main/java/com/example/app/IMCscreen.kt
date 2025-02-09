@@ -3,7 +3,6 @@ package com.example.app
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,17 +13,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,28 +34,24 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.app.MyApp.Companion.EJERCICIO
 import com.example.app.viewmodel.AppViewModelProvider
-import com.example.app.viewmodel.OffLineProductViewModel
 import com.example.app.viewmodel.OffLineUserViewModel
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IMCscreen(
     modifier: Modifier = Modifier,
@@ -68,13 +64,17 @@ fun IMCscreen(
     var sexo by remember { mutableStateOf(value = true) } // true -> masculino
     var altura by remember { mutableStateOf(value = "") }
     var peso by remember { mutableStateOf(value = "") }
+    var edad by remember { mutableStateOf(value = "") }
+    var ejercicioSeleccionado by remember { mutableStateOf(EJERCICIO[0]) }
+    var expanded by remember { mutableStateOf(false) }
+
     val pattern = remember { Regex("^\\d+\$") }
 
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     Column(
-        verticalArrangement = Arrangement.Top,
+        verticalArrangement = Arrangement.SpaceAround,
         modifier = modifier
             .background(
                 brush = Brush.horizontalGradient(
@@ -84,7 +84,6 @@ fun IMCscreen(
                     )
                 )
             )
-            .padding(top = 160.dp)
             .fillMaxSize()
     ) {
         val configuration = LocalConfiguration.current
@@ -93,7 +92,9 @@ fun IMCscreen(
         val interactionSource = remember { MutableInteractionSource() }
 
         // Imagenes y botones para sexo
-        Row(modifier = Modifier.offset(x = 0.dp, y = -150.dp)) {
+        Row(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)) {
             val imagenHombre = if (sexo) R.drawable.man_filled else R.drawable.man_unfilled
             val imagenMujer = if (sexo) R.drawable.woman_unfilled else R.drawable.woman_filled
 
@@ -130,7 +131,7 @@ fun IMCscreen(
         }
 
         // Campos de entrada para altura y peso
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.offset(x = 0.dp, y = -100.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = "Altura: ", fontSize = 20.sp)
             TextField(
                 value = altura,
@@ -144,7 +145,7 @@ fun IMCscreen(
             Text(text = "Cm", fontSize = 20.sp)
         }
 
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.offset(x = 0.dp, y = -100.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = "Peso: ", fontSize = 20.sp)
             TextField(
                 value = peso,
@@ -158,10 +159,64 @@ fun IMCscreen(
             Text(text = "Kg", fontSize = 20.sp)
         }
 
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(text = "Edad: ", fontSize = 20.sp)
+            TextField(
+                value = edad,
+                onValueChange = {
+                    if (it.isEmpty() || it.matches(pattern)) {
+                        edad = it
+                    }
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+            )
+            Text(text = "Años", fontSize = 20.sp)
+        }
+
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 10.dp),) {
+            Text(text = "Frecuencia de Ejercicio: ", fontSize = 20.sp)
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = {
+                    expanded = !expanded
+                }
+            ) {
+                TextField(
+                    value = ejercicioSeleccionado,
+                    onValueChange = {},
+                    readOnly = true,
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 0.dp, vertical = 10.dp)
+                        .menuAnchor()
+                )
+
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                ) {
+                    EJERCICIO.forEach { item ->
+                        DropdownMenuItem(
+                            text = { Text(text = item) },
+                            onClick = {
+                                ejercicioSeleccionado = item
+                                expanded = false
+                            }
+                        )
+                    }
+                }
+            }
+        }
         // Canvas con los arcos
+/*
         Canvas(
             modifier = Modifier
-                .size(150.dp)
+                .size(130.dp)
                 .padding(10.dp)
         ) {
             drawArc(
@@ -171,7 +226,7 @@ fun IMCscreen(
                 useCenter = false,
                 style = Stroke((strokeWidth + 10.dp).toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = -screenHeight.value / 8f)
+
             )
 
             // Calcular el IMC
@@ -195,7 +250,6 @@ fun IMCscreen(
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = -screenHeight.value / 8f)
             )
 
             drawArc(
@@ -205,7 +259,6 @@ fun IMCscreen(
                 useCenter = false,
                 style = Stroke((strokeWidth + 10.dp).toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = -screenHeight.value / 8f)
             )
 
             // Segundo arco (17 a 23)
@@ -221,7 +274,6 @@ fun IMCscreen(
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = -screenHeight.value / 8f)
             )
 
             drawArc(
@@ -231,7 +283,6 @@ fun IMCscreen(
                 useCenter = false,
                 style = Stroke((strokeWidth + 10.dp).toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = -screenHeight.value / 8f)
             )
 
             // Tercer arco (23 a 38)
@@ -246,7 +297,6 @@ fun IMCscreen(
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
                 size = Size(screenWith.toPx(), screenWith.toPx()),
-                topLeft = Offset(x = 0f, y = -screenHeight.value / 8f)
             )
         }
 
@@ -257,22 +307,23 @@ fun IMCscreen(
             fontWeight = FontWeight.Bold,
             fontSize = 30.sp,
             modifier = Modifier
-                .offset(x = screenWith / 2 - screenWith / 20, y = -screenWith / 4f)
+                .align(Alignment.CenterHorizontally)
         )
 
+ */
         var imc = 0.0f
         // Mostrar IMC calculado
         if (altura.isNotEmpty() && peso.isNotEmpty()) {
             val alturaAlCuadrado = (altura.toFloat() / 100) * (altura.toFloat() / 100)
             imc = peso.toFloat() / alturaAlCuadrado
-
-            Text(
+        }
+/*            Text(
                 text = "%.2f".format(imc),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 fontSize = 30.sp,
                 modifier = Modifier
-                    .offset(x = screenWith / 2 - screenWith / 7, y = -screenWith / 4f)
+                .align(Alignment.CenterHorizontally)
             )
 
             // Mostrar el estado del IMC centrado
@@ -290,22 +341,20 @@ fun IMCscreen(
                 fontSize = 30.sp,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally) // Centrado horizontal
-                    .offset(y = -60.dp) // Ajuste de distancia hacia abajo
             )
-        }
 
+*/
         OutlinedButton(
             onClick =  {
                 coroutineScope.launch {
                         val email = recuperarEMAIL(context).toString()
-                        viewModel.updateImc(email, imc.toDouble())
+                        viewModel.guardarDatos(email,sexo,altura,peso,edad,imc,ejercicioSeleccionado)
                     }
                 Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()
             },
             modifier = Modifier
                 .padding(horizontal = 10.dp)
-                .fillMaxWidth()
-                .offset(y = 90.dp),
+                .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
         ){
             Text(text = "GUARDAR")
