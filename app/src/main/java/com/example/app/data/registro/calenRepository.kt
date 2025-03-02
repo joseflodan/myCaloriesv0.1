@@ -1,7 +1,5 @@
 package com.example.app.data.registro
 
-import kotlinx.coroutines.flow.Flow
-
 interface calenRepository {
     suspend fun insert(calen: Calen)
 
@@ -9,7 +7,5 @@ interface calenRepository {
 
     suspend fun delete(calen: Calen)
 
-    fun getUsers(email: String): Calen
-
-    fun getAllItems(): Flow<List<Calen>>
+    fun getRegistros(email: String, fecha: String): List<Calen>
 }

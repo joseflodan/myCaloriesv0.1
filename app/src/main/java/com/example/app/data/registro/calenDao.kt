@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -20,10 +19,7 @@ interface calenDao {
     @Delete
     suspend fun delete(calen: Calen)
 
-    @Query("SELECT * FROM calendario WHERE email = :email")
-    fun getUsers(email: String): Calen
-
-    @Query("SELECT * from calendario ORDER BY name ASC")
-    fun getAllUsers(): Flow<List<Calen>>
+    @Query("SELECT * FROM calendario WHERE email = :email AND fecha = :fecha")
+    fun getRegistros(email: String, fecha: String): List<Calen>
 
 }

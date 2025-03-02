@@ -6,12 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.app.data.product.Product
 import com.example.app.data.product.ProductDao
+import com.example.app.data.registro.Calen
 import com.example.app.data.registro.calenDao
 import com.example.app.data.user.User
 import com.example.app.data.user.userDao
 
 
-@Database(entities = [User::class, Product::class], version = 1, exportSchema = true)
+@Database(entities = [User::class, Product::class, Calen::class], version = 1, exportSchema = true)
 abstract class UserDataBase: RoomDatabase() {
     abstract fun userDao(): userDao
 
