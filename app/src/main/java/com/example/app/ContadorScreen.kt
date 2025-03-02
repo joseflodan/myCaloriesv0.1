@@ -52,7 +52,7 @@ fun ContadorScreen(
     val tmb = viewModel.getTMB(email)
 
     val calorias = viewModel.getCalorias(email)
-
+1
 
     val percentage = calorias/tmb
 

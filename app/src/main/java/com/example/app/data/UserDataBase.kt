@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.app.data.product.Product
 import com.example.app.data.product.ProductDao
+import com.example.app.data.registro.calenDao
 import com.example.app.data.user.User
 import com.example.app.data.user.userDao
 
@@ -15,6 +16,8 @@ abstract class UserDataBase: RoomDatabase() {
     abstract fun userDao(): userDao
 
     abstract fun productDao(): ProductDao
+
+    abstract fun calenDao(): calenDao
 
     companion object{
         @Volatile
