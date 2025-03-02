@@ -36,4 +36,13 @@ class OffLineCalenViewModel(private val calenRepository: CalenRepository): ViewM
             return 0.0
         }
     }
+
+    fun getCaloriesByDay(email: String, fecha : String): Double {
+        val registros = calenRepository.getRegistros(email, fecha )
+        if (registros != null) {
+            return registros.sumOf { it.calorias }
+        }else{
+            return 0.0
+        }
+    }
 }

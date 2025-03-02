@@ -1,25 +1,38 @@
 package com.example.app
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.app.viewmodel.AppViewModelProvider
+import com.example.app.viewmodel.OffLineCalenViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
 fun Calendario(modifier: Modifier = Modifier)
 {
+    val openAlertDialog = remember { mutableStateOf(false) }
+    val date = remember { mutableStateOf("") }
+
     val calendar = Calendar.getInstance()
     val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
     val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
@@ -90,16 +103,64 @@ fun Calendario(modifier: Modifier = Modifier)
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "${day + 1}",
-                        fontSize = 14.sp,
-                        fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal,
-                        color = if (isToday) Color.Black else Color.White
-                    )
+                    TextButton(
+                        onClick = {
+                            openAlertDialog.value = true
+                            val selectDate = Calendar.getInstance()
+                            selectDate.set(Calendar.DAY_OF_MONTH,day + 1)
+                            date.value = SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(selectDate.time)
+                        }) {
+                        Text(
+                            text = "${day + 1}",
+                            fontSize = 14.sp,
+                            fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal,
+                            color = if (isToday) Color.Black else Color.White
+                        )
+                    }
                 }
             }
         }
     }
+    when{
+        openAlertDialog.value -> MinimalDialog(date){
+            openAlertDialog.value = false
+            date.value = ""
+        }
+    }
+}
+
+@Composable
+fun MinimalDialog(
+    date: MutableState<String>,
+    calenviewModel: OffLineCalenViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    onDismissRequest: () -> Unit) {
+
+    val context = LocalContext.current
+    val email = recuperarEMAIL(context).toString()
+    val calorias = calenviewModel.getCaloriesByDay(email,date.value)
+
+    Dialog(onDismissRequest = { onDismissRequest() }) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(16.dp),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Text(
+                text = "This is a minimal dialog" + calorias,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center),
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+private fun recuperarEMAIL (context: Context): String?{
+    val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
+    return sharedPref.getString("email","")
 }
 
 @Preview(showBackground = true)
