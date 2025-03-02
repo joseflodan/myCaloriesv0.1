@@ -14,6 +14,9 @@ object AppViewModelProvider{
         initializer {
             OffLineProductViewModel(myApp().container.productRepository)
         }
+        initializer {
+            OffLineCalenViewModel(myApp().container.calendarRepository)
+        }
     }
 
 }

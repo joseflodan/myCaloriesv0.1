@@ -1,6 +1,6 @@
 package com.example.app.data.registro
 
-interface calenRepository {
+interface CalenRepository {
     suspend fun insert(calen: Calen)
 
     suspend fun update(calen: Calen)

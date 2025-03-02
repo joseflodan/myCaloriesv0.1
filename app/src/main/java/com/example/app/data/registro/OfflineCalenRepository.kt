@@ -1,6 +1,6 @@
 package com.example.app.data.registro
 
-class OfflineCalenRepository (private val calenDAO: calenDao): calenRepository {
+class OfflineCalenRepository (private val calenDAO: calenDao): CalenRepository {
     override suspend fun insert(calen: Calen) {
         calenDAO.insert(calen)
     }

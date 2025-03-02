@@ -45,14 +45,12 @@ import com.example.app.model.Nutriments
 import com.example.app.model.Product
 import com.example.app.viewmodel.AppViewModelProvider
 import com.example.app.viewmodel.FoodApiViewModel
+import com.example.app.viewmodel.OffLineCalenViewModel
 import com.example.app.viewmodel.OffLineProductViewModel
-import com.example.app.viewmodel.OffLineUserViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -149,7 +147,7 @@ fun CameraScreen(
 
 @Composable
 fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
-                 viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
+                 viewModel: OffLineCalenViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -201,6 +199,7 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
 
         Text(
             text = "Calorías: ${respuesta.product?.nutriments?.energyKcal ?: "No disponible"}",
+
             textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
@@ -211,7 +210,8 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
                     val calorias = respuesta.product?.nutriments?.energyKcal
                     calorias?.let{
                         val email = recuperarEMAIL(context).toString()
-                        viewModel.updateCalories(email,calorias)
+                        val producto= respuesta.product?.productName ?: "Nombre no disponible"
+                        viewModel.updateCalories(email,calorias, producto )
                     }
                 }
                 Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()

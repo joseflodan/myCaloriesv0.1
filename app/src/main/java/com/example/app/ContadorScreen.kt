@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,11 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.app.viewmodel.AppViewModelProvider
+import com.example.app.viewmodel.OffLineCalenViewModel
 import com.example.app.viewmodel.OffLineUserViewModel
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import kotlin.math.cos
-import kotlin.math.sin
 
 @Composable
 fun ContadorScreen(
@@ -41,7 +37,9 @@ fun ContadorScreen(
     fillColor: Color = Color(color = 0xFFa07054),
     backgroundColor: Color = Color(color =0xFF6b4a38),
     strokeWidth: Dp = 8.dp,
-    viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    userviewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    calenviewModel: OffLineCalenViewModel = viewModel(factory = AppViewModelProvider.Factory)
+
 ) {
     val BackgroundStartAngle = 140f
     val BackgroundSweepAngle = 260f
@@ -49,10 +47,9 @@ fun ContadorScreen(
     val context = LocalContext.current
     val email = recuperarEMAIL(context).toString()
 
-    val tmb = viewModel.getTMB(email)
+    val tmb = userviewModel.getTMB(email)
 
-    val calorias = viewModel.getCalorias(email)
-1
+    val calorias = calenviewModel.getTodayCalories(email)
 
     val percentage = calorias/tmb
 

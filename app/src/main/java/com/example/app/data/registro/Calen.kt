@@ -11,6 +11,6 @@ data class Calen(
     val email: String = "",
     val fecha: String = "",
     val tiempo: String = "",
-    var calorias: Double = 0.0,
-    var producto: String = ""
+    val calorias: Double = 0.0,
+    val producto: String = ""
 )
