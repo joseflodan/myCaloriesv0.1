@@ -12,5 +12,4 @@ data class Product(
     val imageUrl: String = "",
     val productName: String = "",
     val energyKcal: Double = 0.0
-
 ){}

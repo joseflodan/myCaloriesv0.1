@@ -14,7 +14,7 @@ class OffLineUserViewModel (private val userRepository: UserRepository): ViewMod
     suspend fun validarUsuario(user : User): Boolean{
 
         val recoverUser = userRepository.getUsers(user.email)
-        if(recoverUser == null){ //si el correo no esta registrado se debe guardar el usuario
+        if(recoverUser == null){
             guardarsuario(user)
             return true
         }

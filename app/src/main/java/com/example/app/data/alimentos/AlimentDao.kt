@@ -1,0 +1,18 @@
+package com.example.app.data.alimentos
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface AlimentDao {
+    @Query("SELECT * FROM alimentos")
+    fun getAliments(): Flow<List<Aliment>>
+
+    @Insert
+    suspend fun insertAliment(aliment: Aliment)
+
+    @Insert
+    suspend fun insertAll(alimentos: List<Aliment>)
+}

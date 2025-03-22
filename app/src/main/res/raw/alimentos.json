@@ -1,0 +1,255 @@
+[
+    {
+        "id":"1",
+        "nombre":"Adobo de cerdo",
+        "Kcal":"207 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"2",
+        "nombre":"Alegrías de amaranto",
+        "Kcal":"374 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"3",
+        "nombre":"Albóndigas de carne",
+        "Kcal":"57 kcal",
+        "porcion":"28g"
+    },
+    {
+        "id":"4",
+        "nombre":"Arroz con leche",
+        "Kcal":"284 kcal",
+        "porcion":"200g"
+    },
+    {
+        "id":"5",
+        "nombre":"Barbacoa",
+        "Kcal":"117 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"6",
+        "nombre":"Birria",
+        "Kcal":"342 kcal",
+        "porcion":"244g"
+    },
+    {
+        "id":"7",
+        "nombre":"Bistec a la mexicana",
+        "Kcal":"103 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"8",
+        "nombre":"Buñuelos",
+        "Kcal":"245 kcal",
+        "porcion":"60g"
+    },
+    {
+        "id":"9",
+        "nombre":"Capirotada",
+        "Kcal":"280 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"10",
+        "nombre":"Cecina con nopales",
+        "Kcal":"287 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"11",
+        "nombre":"Chicharrón en salsa verde",
+        "Kcal":"361 kcal",
+        "porcion":"190g"
+    },
+    {
+        "id":"12",
+        "nombre":"Chile en Nogada",
+        "Kcal": "500 kcal",
+        "porcion":""
+    },
+    {
+        "id":"13",
+        "nombre":"Cochinita pibil",
+        "Kcal":"197 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"14",
+        "nombre":"Empanadas de pollo",
+        "Kcal":"235 kcal",
+        "porcion":"1 Empanada (90g)"
+    },
+    {
+        "id":"15",
+        "nombre":"Enchiladas rojas",
+        "Kcal":"234 kcal",
+        "porcion":"1 Enchilad (126g)"
+    },
+    {
+        "id":"16",
+        "nombre":"Enchiladas suizas",
+        "Kcal":"893 kcal",
+        "porcion":"1 Enchilada (645g)"
+    },
+    {
+        "id":"17",
+        "nombre":"Enchiladas Verdes",
+        "Kcal":"168 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"18",
+        "nombre":"Enfrijoladas",
+        "Kcal":"192 kcal",
+        "porcion":"1 Enfrijolada (110g)"
+    },
+    {
+        "id":"19",
+        "nombre":"Entomatadas",
+        "Kcal":"55 kcal",
+        "porcion":"1 Unidad (50g)"
+    },
+    {
+        "id":"20",
+        "nombre":"Flautas (de pollo, res o papa)",
+        "Kcal":"738 kcal",
+        "porcion":"1 porcion (190g)"
+    },
+    {
+        "id":"21",
+        "nombre":"Gorditas (de chicharrón o queso)",
+        "Kcal":"405.5 kcal",
+        "porcion":"1 Porcion Mediana 100g"
+    },
+    {
+        "id":"22",
+        "nombre":"Huaraches",
+        "Kcal":"438 kcal",
+        "porcion":"1 Porcion (232g)"
+    },
+    {
+        "id":"23",
+        "nombre":"Menudo",
+        "Kcal":"104 kcal",
+        "porcion":"1 taza (240g)"
+    },
+    {
+        "id":"24",
+        "nombre":"Mole poblano",
+        "Kcal":"164 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"25",
+        "nombre":"Nopales con huevo",
+        "Kcal":"230 kcal",
+        "porcion":"1 Porcion (200g)"
+    },
+    {
+        "id":"26",
+        "nombre":"Pambazos",
+        "Kcal":"270 kcal",
+        "porcion":"100g"
+    },
+    {
+        "id":"27",
+        "nombre":"Papas con chorizo",
+        "Kcal":"379 kcal",
+        "porcion":"1 Porcion (150g)"
+    },
+    {
+        "id":"28",
+        "nombre":"Pozole (rojo, blanco o verde)",
+        "Kcal":"228 kcal",
+        "porcion":"1 Porcion (238g)"
+    },
+    {
+        "id":"29",
+        "nombre":"Quesadillas",
+        "Kcal":"171 kcal",
+        "porcion":"1 Quesadilla (55g)"
+    },
+    {
+        "id":"30",
+        "nombre":"Sopes",
+        "Kcal":"87 kcal",
+        "porcion":"1 Sope (42g)"
+    },
+    {
+        "id":"31",
+        "nombre":"Tacos al pastor",
+        "Kcal":"93 kcal",
+        "porcion":"1 Taco (35g)"
+    },
+    {
+        "id":"32",
+        "nombre":"Tacos de barbacoa",
+        "Kcal":"196 kcal",
+        "porcion":"1 Taco (90g)"
+    },
+    {
+        "id":"33",
+        "nombre":"Tacos de Carnitas",
+        "Kcal":"350 kcal",
+        "porcion":"1 Taco (140g)"
+    },
+    {
+        "id":"34",
+        "nombre":"Tamales de Elote",
+        "Kcal":"184 kcal",
+        "porcion":"1 Tamal (110g)"
+    },
+    {
+        "id":"35",
+        "nombre":"Tamales de Frijol",
+        "Kcal":"104 kcal",
+        "porcion":"1 Tamal (100g)"
+    },
+    {
+        "id":"36",
+        "nombre":"Tamales de Mole",
+        "Kcal":"458 kcal",
+        "porcion":"1 Tamal (200g)"
+    },
+    {
+        "id":"37",
+        "nombre":"Tamales de dulce",
+        "Kcal":"350 kcal",
+        "porcion":"1 Tamal (140g)"
+    },
+    {
+        "id":"38",
+        "nombre":"Tamales de Cerdo",
+        "Kcal":"150 kcal",
+        "porcion":"1 Tamal (70g)"
+    },
+    {
+        "id":"39",
+        "nombre":"Tlacoyos",
+        "Kcal":"168 kcal",
+        "porcion":"1 Pieza (75g)"
+    },
+    {
+        "id":"40",
+        "nombre":"Tostadas Preparadas (Sin Carne)",
+        "Kcal":"144 kcal",
+        "porcion":"1 Tostada (88g)"
+    },
+    {
+        "id":"41",
+        "nombre":"Caldo de pollo",
+        "Kcal":"12 kcal",
+        "porcion":"1 Porcion (240ml)"
+    },
+    {
+        "id":"42",
+        "nombre":"Caldo de Res",
+        "Kcal":"168 kcal",
+        "porcion":"1 Porcion (240ml)"
+    }
+
+]

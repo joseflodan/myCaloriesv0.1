@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.app.MyApp
+import com.example.app.data.alimentos.OffLineAlimentRepository
 
 object AppViewModelProvider{
     val Factory = viewModelFactory {
@@ -16,6 +17,9 @@ object AppViewModelProvider{
         }
         initializer {
             OffLineCalenViewModel(myApp().container.calendarRepository)
+        }
+        initializer {
+            OffLineAlimentViewModel(myApp().container.alimentRepository)
         }
     }
 
