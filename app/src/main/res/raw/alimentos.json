@@ -2,553 +2,553 @@
     {
         "id":"1",
         "nombre":"Adobo de cerdo",
-        "Kcal":"207 kcal",
+        "Kcal":"207",
         "porcion":"100g"
     },
     {
         "id":"2",
         "nombre":"Alegrías de amaranto",
-        "Kcal":"374 kcal",
+        "Kcal":"374",
         "porcion":"100g"
     },
     {
         "id":"3",
         "nombre":"Albóndigas de carne",
-        "Kcal":"57 kcal",
+        "Kcal":"57",
         "porcion":"28g"
     },
     {
         "id":"4",
         "nombre":"Arroz con leche",
-        "Kcal":"284 kcal",
+        "Kcal":"284",
         "porcion":"200g"
     },
     {
         "id":"5",
         "nombre":"Barbacoa",
-        "Kcal":"117 kcal",
+        "Kcal":"117",
         "porcion":"100g"
     },
     {
         "id":"6",
         "nombre":"Birria",
-        "Kcal":"342 kcal",
+        "Kcal":"342",
         "porcion":"244g"
     },
     {
         "id":"7",
         "nombre":"Bistec a la mexicana",
-        "Kcal":"103 kcal",
+        "Kcal":"103",
         "porcion":"100g"
     },
     {
         "id":"8",
         "nombre":"Buñuelos",
-        "Kcal":"245 kcal",
+        "Kcal":"245",
         "porcion":"60g"
     },
     {
         "id":"9",
         "nombre":"Capirotada",
-        "Kcal":"280 kcal",
+        "Kcal":"280",
         "porcion":"100g"
     },
     {
         "id":"10",
         "nombre":"Cecina con nopales",
-        "Kcal":"287 kcal",
+        "Kcal":"287",
         "porcion":"100g"
     },
     {
         "id":"11",
         "nombre":"Chicharrón en salsa verde",
-        "Kcal":"361 kcal",
+        "Kcal":"361",
         "porcion":"190g"
     },
     {
         "id":"12",
         "nombre":"Chile en Nogada",
-        "Kcal": "500 kcal",
+        "Kcal": "500",
         "porcion":""
     },
     {
         "id":"13",
         "nombre":"Cochinita pibil",
-        "Kcal":"197 kcal",
+        "Kcal":"197",
         "porcion":"100g"
     },
     {
         "id":"14",
         "nombre":"Empanadas de pollo",
-        "Kcal":"235 kcal",
+        "Kcal":"235",
         "porcion":"1 Empanada (90g)"
     },
     {
         "id":"15",
         "nombre":"Enchiladas rojas",
-        "Kcal":"234 kcal",
+        "Kcal":"234",
         "porcion":"1 Enchilad (126g)"
     },
     {
         "id":"16",
         "nombre":"Enchiladas suizas",
-        "Kcal":"893 kcal",
+        "Kcal":"893",
         "porcion":"1 Enchilada (645g)"
     },
     {
         "id":"17",
         "nombre":"Enchiladas Verdes",
-        "Kcal":"168 kcal",
+        "Kcal":"168",
         "porcion":"100g"
     },
     {
         "id":"18",
         "nombre":"Enfrijoladas",
-        "Kcal":"192 kcal",
+        "Kcal":"192",
         "porcion":"1 Enfrijolada (110g)"
     },
     {
         "id":"19",
         "nombre":"Entomatadas",
-        "Kcal":"55 kcal",
+        "Kcal":"55",
         "porcion":"1 Unidad (50g)"
     },
     {
         "id":"20",
         "nombre":"Flautas (de pollo, res o papa)",
-        "Kcal":"738 kcal",
+        "Kcal":"738",
         "porcion":"1 porcion (190g)"
     },
     {
         "id":"21",
         "nombre":"Gorditas (de chicharrón o queso)",
-        "Kcal":"405.5 kcal",
+        "Kcal":"405.5",
         "porcion":"1 Porcion Mediana 100g"
     },
     {
         "id":"22",
         "nombre":"Huaraches",
-        "Kcal":"438 kcal",
+        "Kcal":"438",
         "porcion":"1 Porcion (232g)"
     },
     {
         "id":"23",
         "nombre":"Menudo",
-        "Kcal":"104 kcal",
+        "Kcal":"104",
         "porcion":"1 taza (240g)"
     },
     {
         "id":"24",
         "nombre":"Mole poblano",
-        "Kcal":"164 kcal",
+        "Kcal":"164",
         "porcion":"100g"
     },
     {
         "id":"25",
         "nombre":"Nopales con huevo",
-        "Kcal":"230 kcal",
+        "Kcal":"230",
         "porcion":"1 Porcion (200g)"
     },
     {
         "id":"26",
         "nombre":"Pambazos",
-        "Kcal":"270 kcal",
+        "Kcal":"270",
         "porcion":"100g"
     },
     {
         "id":"27",
         "nombre":"Papas con chorizo",
-        "Kcal":"379 kcal",
+        "Kcal":"379",
         "porcion":"1 Porcion (150g)"
     },
     {
         "id":"28",
         "nombre":"Pozole (rojo, blanco o verde)",
-        "Kcal":"228 kcal",
+        "Kcal":"228",
         "porcion":"1 Porcion (238g)"
     },
     {
         "id":"29",
         "nombre":"Quesadillas",
-        "Kcal":"171 kcal",
+        "Kcal":"171",
         "porcion":"1 Quesadilla (55g)"
     },
     {
         "id":"30",
         "nombre":"Sopes",
-        "Kcal":"87 kcal",
+        "Kcal":"87",
         "porcion":"1 Sope (42g)"
     },
     {
         "id":"31",
         "nombre":"Tacos al pastor",
-        "Kcal":"93 kcal",
+        "Kcal":"93",
         "porcion":"1 Taco (35g)"
     },
     {
         "id":"32",
         "nombre":"Tacos de barbacoa",
-        "Kcal":"196 kcal",
+        "Kcal":"196",
         "porcion":"1 Taco (90g)"
     },
     {
         "id":"33",
         "nombre":"Tacos de Carnitas",
-        "Kcal":"350 kcal",
+        "Kcal":"350",
         "porcion":"1 Taco (140g)"
     },
     {
         "id":"34",
         "nombre":"Tamales de Elote",
-        "Kcal":"184 kcal",
+        "Kcal":"184",
         "porcion":"1 Tamal (110g)"
     },
     {
         "id":"35",
         "nombre":"Tamales de Frijol",
-        "Kcal":"104 kcal",
+        "Kcal":"104",
         "porcion":"1 Tamal (100g)"
     },
     {
         "id":"36",
         "nombre":"Tamales de Mole",
-        "Kcal":"458 kcal",
+        "Kcal":"458",
         "porcion":"1 Tamal (200g)"
     },
     {
         "id":"37",
         "nombre":"Tamales de dulce",
-        "Kcal":"350 kcal",
+        "Kcal":"350",
         "porcion":"1 Tamal (140g)"
     },
     {
         "id":"38",
         "nombre":"Tamales de Cerdo",
-        "Kcal":"150 kcal",
+        "Kcal":"150",
         "porcion":"1 Tamal (70g)"
     },
     {
         "id":"39",
         "nombre":"Tlacoyos",
-        "Kcal":"168 kcal",
+        "Kcal":"168",
         "porcion":"1 Pieza (75g)"
     },
     {
         "id":"40",
         "nombre":"Tostadas Preparadas (Sin Carne)",
-        "Kcal":"144 kcal",
+        "Kcal":"144",
         "porcion":"1 Tostada (88g)"
     },
     {
         "id":"41",
         "nombre":"Caldo de pollo",
-        "Kcal":"12 kcal",
+        "Kcal":"12",
         "porcion":"1 Porcion (240ml)"
     },
     {
         "id":"42",
         "nombre":"Caldo de Res",
-        "Kcal":"168 kcal",
+        "Kcal":"168",
         "porcion":"1 Porcion (240ml)"
     },
     {
         "id": "43",
         "nombre": "Aguacate",
-        "kcal":"160",
-        "porciones": "100g"
+        "Kcal":"160",
+        "porcion": "100g"
     },
     {
 
         "id": "44",
         "nombre": "Betabel",
-        "kcal": "42",
-        "porciones": "100g"
+        "Kcal": "42",
+        "porcion": "100g"
 
     },
     {
         "id": "45",
         "nombre": "Brocoli",
-        "kcal": "34",
-        "porciones": "100g"
+        "Kcal": "34",
+        "porcion": "100g"
     },
     {
         "id": "46",
         "nombre": "Caimito",
-        "kcal": "67",
-        "porciones": "100g"
+        "Kcal": "67",
+        "porcion": "100g"
     },
     {
         "id": "47",
         "nombre": "Calabaza",
-        "kcal": "26",
-        "porciones": "100g"
+        "Kcal": "26",
+        "porcion": "100g"
     },
     {
         "id": "48",
         "nombre": "Cebolla",
-        "kcal": "42",
-        "porciones": "100g"
+        "Kcal": "42",
+        "porcion": "100g"
     },
     {
         "id": "49",
         "nombre": "Cebollin",
-        "kcal": "30",
-        "porciones": "100g"
+        "Kcal": "30",
+        "porcion": "100g"
     },
     {
         "id": "50",
         "nombre": "Chabacano",
-        "kcal": "17",
-        "porciones": "100g"
+        "Kcal": "17",
+        "porcion": "100g"
     },
     {
         "id": "51",
         "nombre": "Chayote",
-        "kcal": "17",
-        "porciones": "100g"
+        "Kcal": "17",
+        "porcion": "100g"
     },
     {
         "id": "52",
         "nombre": "Chile habanero",
-        "kcal": "15",
-        "porciones": "100g"
+        "Kcal": "15",
+        "porcion": "100g"
     },
     {
         "id": "53",
         "nombre": "Chile jalapeño",
-        "kcal": "4",
-        "porciones": "100g"
+        "Kcal": "4",
+        "porcion": "100g"
     },
     {
         "id": "54",
         "nombre": "Chile poblano",
-        "kcal": "18",
-        "porciones": "100g"
+        "Kcal": "18",
+        "porcion": "100g"
     },
     {
         "id": "55",
         "nombre": "Chile serrano",
-        "kcal": "32",
-        "porciones": "100g"
+        "Kcal": "32",
+        "porcion": "100g"
     },
     {
         "id": "56",
         "nombre": "Ciruela",
-        "kcal": "30",
-        "porciones": "100g"
+        "Kcal": "30",
+        "porcion": "100g"
 
     },
     {
         "id": "57",
         "nombre": "Coco",
-        "kcal": "354",
-        "porciones": "100g"
+        "Kcal": "354",
+        "porcion": "100g"
     },
     {
         "id": "58",
         "nombre": "Coliflor",
-        "kcal": "25",
-        "porciones": "100g"
+        "Kcal": "25",
+        "porcion": "100g"
     },
     {
         "id": "59",
         "nombre": "Durazno",
-        "kcal": "38",
-        "porciones": "100g"
+        "Kcal": "38",
+        "porcion": "100g"
     },
     {
         "id": "60",
         "nombre": "Ejotes",
-        "kcal": "34",
-        "porciones": "100g"
+        "Kcal": "34",
+        "porcion": "100g"
     },
     {
         "id": "61",
         "nombre": "Elote",
-        "kcal": "122",
-        "porciones": "100g"
+        "Kcal": "122",
+        "porcion": "100g"
     },
     {
         "id": "62",
         "nombre": "Espinaca",
-        "kcal": "7",
-        "porciones": "100g"
+        "Kcal": "7",
+        "porcion": "100g"
     },
     {
         "id": "63",
         "nombre": "Fresa",
-        "kcal": "32",
-        "porciones": "100g"
+        "Kcal": "32",
+        "porcion": "100g"
     },
     {
         "id": "64",
         "nombre": "Granada",
-        "kcal": "68",
-        "porciones": "100g"
+        "Kcal": "68",
+        "porcion": "100g"
     },
     {
         "id": "65",
         "nombre": "Guayaba",
-        "kcal": "37",
-        "porciones": "100g"
+        "Kcal": "37",
+        "porcion": "100g"
     },
     {
         "id": "66",
         "nombre": "Higo",
-        "kcal": "74",
-        "porciones": "100g"
+        "Kcal": "74",
+        "porcion": "100g"
     },
 
     {
 
         "id": "67",
         "nombre": "Huauzontle",
-        "kcal": "46",
-        "porciones": "100g"
+        "Kcal": "46",
+        "porcion": "100g"
     },
     {
         "id": "68",
         "nombre": "Jitomate",
-        "kcal": "20",
-        "porciones": "100g"
+        "Kcal": "20",
+        "porcion": "100g"
     },
     {
         "id": "69",
         "nombre": "Lechuga",
-        "kcal": "8",
-        "porciones": "100g"
+        "Kcal": "8",
+        "porcion": "100g"
     },
     {
         "id": "70",
         "nombre": "Limon",
-        "kcal": "17",
-        "porciones": "100g"
+        "Kcal": "17",
+        "porcion": "100g"
     },
     {
         "id": "71",
         "nombre": "Mango",
-        "kcal": "65",
-        "porciones": "100g"
+        "Kcal": "65",
+        "porcion": "100g"
     },
     {
-        "id": "71",
+        "id": "72",
         "nombre": "Manzana",
-        "kcal": "72",
-        "porciones": "100g"
+        "Kcal": "72",
+        "porcion": "100g"
     },
     {
-        "id": "71",
+        "id": "73",
         "nombre": "Maracuyá",
-        "kcal": "17",
-        "porciones": "100g"
+        "Kcal": "17",
+        "porcion": "100g"
     },
     {
         "id": "74",
         "nombre": "Melón",
-        "kcal": "34",
-        "porciones": "100g"
+        "Kcal": "34",
+        "porcion": "100g"
     },
     {
         "id": "75",
         "nombre": "Nopal",
-        "kcal": "16",
-        "porciones": "100g"
+        "Kcal": "16",
+        "porcion": "100g"
     },
     {
         "id": "76",
         "nombre": "Naranja",
-        "kcal": "62",
-        "porciones": "100g"
+        "Kcal": "62",
+        "porcion": "100g"
     },
     {
         "id": "77",
         "nombre": "Papaya",
-        "kcal": "39",
-        "porciones": "100g"
+        "Kcal": "39",
+        "porcion": "100g"
     },
     {
         "id": "78",
         "nombre": "Papa",
-        "kcal": "77",
-        "porciones": "100g"
+        "Kcal": "77",
+        "porcion": "100g"
     },
     {
         "id": "79",
         "nombre": "Pepino",
-        "kcal": "14",
-        "porciones": "100g"
+        "Kcal": "14",
+        "porcion": "100g"
     },
     {
         "id": "80",
         "nombre": "Pera",
-        "kcal": "96",
-        "porciones": "100g"
+        "Kcal": "96",
+        "porcion": "100g"
     },
     {
         "id": "81",
         "nombre": "Piña",
-        "kcal": "48",
-        "porciones": "100g"
+        "Kcal": "48",
+        "porcion": "100g"
     },
     {
         "id": "84",
         "nombre": "Plátano",
-        "kcal": "89",
-        "porciones": "100g"
+        "Kcal": "89",
+        "porcion": "100g"
     },
     {
         "id": "85",
         "nombre": "Quelites",
-        "kcal": "20",
-        "porciones": "100g"
+        "Kcal": "20",
+        "porcion": "100g"
     },
     {
         "id": "86",
         "nombre": "Rábano",
-        "kcal": "16",
-        "porciones": "100g"
+        "Kcal": "16",
+        "porcion": "100g"
     },
     {
         "id": "87",
         "nombre": "Sandía",
-        "kcal": "30",
-        "porciones": "100g"
+        "Kcal": "30",
+        "porcion": "100g"
     },
     {
         "id": "89",
         "nombre": "Tomate verde",
-        "kcal": "23",
-        "porciones": "100g"
+        "Kcal": "23",
+        "porcion": "100g"
     },
     {
         "id": "90",
         "nombre": "Tuna",
-        "kcal": "42",
-        "porciones": "100g"
+        "Kcal": "42",
+        "porcion": "100g"
     },
     {
         "id": "91",
         "nombre": "Uva",
-        "kcal": "3",
-        "porciones": "100g"
+        "Kcal": "3",
+        "porcion": "100g"
     },
     {
         "id": "92",
         "nombre": "Xoconostle",
-        "kcal": "46",
-        "porciones": "100g"
+        "Kcal": "46",
+        "porcion": "100g"
     },
     {
         "id": "93",
         "nombre": "Zanahoria",
-        "kcal": "41",
-        "porciones": "100g"
+        "Kcal": "41",
+        "porcion": "100g"
     },
     {
         "id": "94",
         "nombre": "Zapote",
-        "kcal": "114",
-        "porciones": "100g"
+        "Kcal": "114",
+        "porcion": "100g"
     }
 
 ]

@@ -8,5 +8,4 @@ interface ProductRepository {
     suspend fun delete(product: Product)
 
     suspend fun getProduct(barcode: String): Product
-
 }
