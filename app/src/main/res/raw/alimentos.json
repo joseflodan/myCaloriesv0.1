@@ -250,6 +250,305 @@
         "nombre":"Caldo de Res",
         "Kcal":"168 kcal",
         "porcion":"1 Porcion (240ml)"
+    },
+    {
+        "id": "43",
+        "nombre": "Aguacate",
+        "kcal":"160",
+        "porciones": "100g"
+    },
+    {
+
+        "id": "44",
+        "nombre": "Betabel",
+        "kcal": "42",
+        "porciones": "100g"
+
+    },
+    {
+        "id": "45",
+        "nombre": "Brocoli",
+        "kcal": "34",
+        "porciones": "100g"
+    },
+    {
+        "id": "46",
+        "nombre": "Caimito",
+        "kcal": "67",
+        "porciones": "100g"
+    },
+    {
+        "id": "47",
+        "nombre": "Calabaza",
+        "kcal": "26",
+        "porciones": "100g"
+    },
+    {
+        "id": "48",
+        "nombre": "Cebolla",
+        "kcal": "42",
+        "porciones": "100g"
+    },
+    {
+        "id": "49",
+        "nombre": "Cebollin",
+        "kcal": "30",
+        "porciones": "100g"
+    },
+    {
+        "id": "50",
+        "nombre": "Chabacano",
+        "kcal": "17",
+        "porciones": "100g"
+    },
+    {
+        "id": "51",
+        "nombre": "Chayote",
+        "kcal": "17",
+        "porciones": "100g"
+    },
+    {
+        "id": "52",
+        "nombre": "Chile habanero",
+        "kcal": "15",
+        "porciones": "100g"
+    },
+    {
+        "id": "53",
+        "nombre": "Chile jalapeño",
+        "kcal": "4",
+        "porciones": "100g"
+    },
+    {
+        "id": "54",
+        "nombre": "Chile poblano",
+        "kcal": "18",
+        "porciones": "100g"
+    },
+    {
+        "id": "55",
+        "nombre": "Chile serrano",
+        "kcal": "32",
+        "porciones": "100g"
+    },
+    {
+        "id": "56",
+        "nombre": "Ciruela",
+        "kcal": "30",
+        "porciones": "100g"
+
+    },
+    {
+        "id": "57",
+        "nombre": "Coco",
+        "kcal": "354",
+        "porciones": "100g"
+    },
+    {
+        "id": "58",
+        "nombre": "Coliflor",
+        "kcal": "25",
+        "porciones": "100g"
+    },
+    {
+        "id": "59",
+        "nombre": "Durazno",
+        "kcal": "38",
+        "porciones": "100g"
+    },
+    {
+        "id": "60",
+        "nombre": "Ejotes",
+        "kcal": "34",
+        "porciones": "100g"
+    },
+    {
+        "id": "61",
+        "nombre": "Elote",
+        "kcal": "122",
+        "porciones": "100g"
+    },
+    {
+        "id": "62",
+        "nombre": "Espinaca",
+        "kcal": "7",
+        "porciones": "100g"
+    },
+    {
+        "id": "63",
+        "nombre": "Fresa",
+        "kcal": "32",
+        "porciones": "100g"
+    },
+    {
+        "id": "64",
+        "nombre": "Granada",
+        "kcal": "68",
+        "porciones": "100g"
+    },
+    {
+        "id": "65",
+        "nombre": "Guayaba",
+        "kcal": "37",
+        "porciones": "100g"
+    },
+    {
+        "id": "66",
+        "nombre": "Higo",
+        "kcal": "74",
+        "porciones": "100g"
+    },
+
+    {
+
+        "id": "67",
+        "nombre": "Huauzontle",
+        "kcal": "46",
+        "porciones": "100g"
+    },
+    {
+        "id": "68",
+        "nombre": "Jitomate",
+        "kcal": "20",
+        "porciones": "100g"
+    },
+    {
+        "id": "69",
+        "nombre": "Lechuga",
+        "kcal": "8",
+        "porciones": "100g"
+    },
+    {
+        "id": "70",
+        "nombre": "Limon",
+        "kcal": "17",
+        "porciones": "100g"
+    },
+    {
+        "id": "71",
+        "nombre": "Mango",
+        "kcal": "65",
+        "porciones": "100g"
+    },
+    {
+        "id": "71",
+        "nombre": "Manzana",
+        "kcal": "72",
+        "porciones": "100g"
+    },
+    {
+        "id": "71",
+        "nombre": "Maracuyá",
+        "kcal": "17",
+        "porciones": "100g"
+    },
+    {
+        "id": "74",
+        "nombre": "Melón",
+        "kcal": "34",
+        "porciones": "100g"
+    },
+    {
+        "id": "75",
+        "nombre": "Nopal",
+        "kcal": "16",
+        "porciones": "100g"
+    },
+    {
+        "id": "76",
+        "nombre": "Naranja",
+        "kcal": "62",
+        "porciones": "100g"
+    },
+    {
+        "id": "77",
+        "nombre": "Papaya",
+        "kcal": "39",
+        "porciones": "100g"
+    },
+    {
+        "id": "78",
+        "nombre": "Papa",
+        "kcal": "77",
+        "porciones": "100g"
+    },
+    {
+        "id": "79",
+        "nombre": "Pepino",
+        "kcal": "14",
+        "porciones": "100g"
+    },
+    {
+        "id": "80",
+        "nombre": "Pera",
+        "kcal": "96",
+        "porciones": "100g"
+    },
+    {
+        "id": "81",
+        "nombre": "Piña",
+        "kcal": "48",
+        "porciones": "100g"
+    },
+    {
+        "id": "84",
+        "nombre": "Plátano",
+        "kcal": "89",
+        "porciones": "100g"
+    },
+    {
+        "id": "85",
+        "nombre": "Quelites",
+        "kcal": "20",
+        "porciones": "100g"
+    },
+    {
+        "id": "86",
+        "nombre": "Rábano",
+        "kcal": "16",
+        "porciones": "100g"
+    },
+    {
+        "id": "87",
+        "nombre": "Sandía",
+        "kcal": "30",
+        "porciones": "100g"
+    },
+    {
+        "id": "89",
+        "nombre": "Tomate verde",
+        "kcal": "23",
+        "porciones": "100g"
+    },
+    {
+        "id": "90",
+        "nombre": "Tuna",
+        "kcal": "42",
+        "porciones": "100g"
+    },
+    {
+        "id": "91",
+        "nombre": "Uva",
+        "kcal": "3",
+        "porciones": "100g"
+    },
+    {
+        "id": "92",
+        "nombre": "Xoconostle",
+        "kcal": "46",
+        "porciones": "100g"
+    },
+    {
+        "id": "93",
+        "nombre": "Zanahoria",
+        "kcal": "41",
+        "porciones": "100g"
+    },
+    {
+        "id": "94",
+        "nombre": "Zapote",
+        "kcal": "114",
+        "porciones": "100g"
     }
 
 ]
