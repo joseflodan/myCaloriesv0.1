@@ -2,6 +2,7 @@ package com.example.app.data
 
 import android.content.Context
 import com.example.app.data.alimentos.AlimentRepository
+import com.example.app.data.alimentos.OffLineAlimentRepository
 import com.example.app.data.product.OffLineProductRepository
 import com.example.app.data.product.ProductRepository
 import com.example.app.data.registro.OfflineCalenRepository
@@ -28,6 +29,7 @@ class AppDataContainer(private val context: Context) : AppContainer {
     override val calendarRepository : CalenRepository by lazy {
         OfflineCalenRepository(UserDataBase.getDataBase(context).calenDao())
     }
-    override val alimentRepository: AlimentRepository
-        get() = TODO("Not yet implemented")
+    override val alimentRepository: AlimentRepository by lazy {
+        OffLineAlimentRepository(UserDataBase.getDataBase(context).alimentDao())
+    }
 }

@@ -1,7 +1,7 @@
 package com.example.app.data.alimentos
 
-class AlimentRepository (private val alimentDao: AlimentDao) {
+import com.example.app.data.product.Product
 
-    fun getAliments(): List<Aliment> = alimentDao.getAliments()
-
+interface AlimentRepository {
+    fun getAliments():  List<Aliment>
 }
