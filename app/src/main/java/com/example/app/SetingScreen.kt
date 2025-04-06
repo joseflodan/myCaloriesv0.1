@@ -1,6 +1,7 @@
 package com.example.app
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,15 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.openai.client.okhttp.OpenAIOkHttpClient
+import com.openai.credential.BearerTokenCredential
+import com.openai.models.ChatModel
+import com.openai.models.chat.completions.ChatCompletionCreateParams
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 @Composable
 fun SetingScreen(
@@ -52,7 +62,9 @@ fun SetingScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
          OutlinedButton(
-             onClick = {},
+             onClick = {
+                 callChatGPT()
+             },
              modifier = Modifier
                  .padding(10.dp)
                  .fillMaxWidth(),
@@ -102,6 +114,24 @@ fun SetingScreen(
     }
 }
 
+private fun callChatGPT(){
+    val client = OpenAIOkHttpClient.builder().apply {
+        val openAIKey = BuildConfig.OPENAI_API_KEY
+        credential(BearerTokenCredential.create(openAIKey))
+    }.build()
+
+    val params = ChatCompletionCreateParams.builder()
+        .addUserMessage("Say this is a test")
+        .model(ChatModel.GPT_4O)
+        .build()
+
+    CoroutineScope(Dispatchers.IO).launch {
+        val chatCompletion = client.chat().completions().create(params)
+        withContext(Dispatchers.Main) {
+            Log.d("Prueba",chatCompletion._choices().toString())
+        }
+    }
+}
 
 private fun borrarEMAIL (context: Context){
     val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)

@@ -22,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String","OPENAI_API_KEY","\"AGREGAR KEY AQUI\"")
     }
 
     buildTypes {
@@ -42,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -49,6 +51,11 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/LICENSE"
+            excludes += "META-INF/LICENSE.txt"
+            excludes += "META-INF/NOTICE"
+            excludes += "META-INF/NOTICE.txt"
         }
     }
 }
@@ -99,4 +106,5 @@ dependencies {
 
     ksp(libs.androidx.room.compiler)
 
+    implementation(libs.openai.java)
 }
