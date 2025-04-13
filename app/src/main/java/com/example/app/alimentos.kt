@@ -1,9 +1,13 @@
 package com.example.app
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,17 +23,23 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberImagePainter
+import com.example.app.ia.ChatHelper
 import com.example.app.viewmodel.AppViewModelProvider
 import com.example.app.viewmodel.OffLineAlimentViewModel
-import com.example.app.viewmodel.OffLineUserViewModel
-
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Objects
 
 @Composable
 fun alimentos(
@@ -42,6 +52,33 @@ fun alimentos(
     var filteredSuggestions by remember { mutableStateOf(suggestions) }
     var showSuggestions by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
+
+    val context = LocalContext.current
+    val file = context.createImageFile()
+    val uri = FileProvider.getUriForFile(
+        Objects.requireNonNull(context),
+        BuildConfig.APPLICATION_ID + ".provider", file
+    )
+
+    var capturedImageUri by remember {
+        mutableStateOf<Uri>(Uri.EMPTY)
+    }
+
+    val cameraLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
+            capturedImageUri = uri
+        }
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+        if (it) {
+            Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT).show()
+            cameraLauncher.launch(uri)
+        } else {
+            Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -143,14 +180,32 @@ fun alimentos(
                 .height(50.dp)
                 .background(Color(0xFF8C6E60), RoundedCornerShape(8.dp))
                 .clickable {
-                    if (foodInput.text.isNotEmpty()) {
+/*                    if (foodInput.text.isNotEmpty()) {
                         foodList.add(foodInput.text)
                         foodInput = TextFieldValue("")
+                    }*/
+                    val permissionCheckResult =
+                        ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
+                    if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
+                        cameraLauncher.launch(uri)
+                    } else {
+                        // Request a permission
+                        permissionLauncher.launch(android.Manifest.permission.CAMERA)
                     }
                 },
             contentAlignment = Alignment.Center
         ) {
             Text(text = "+", style = TextStyle(color = Color.White, fontSize = 24.sp))
+        }
+
+        if (capturedImageUri.path?.isNotEmpty() == true) {
+            ChatHelper().consultarAlimentosEnFoto(context, capturedImageUri)
+            Image(
+                modifier = Modifier
+                    .padding(16.dp, 8.dp),
+                painter = rememberImagePainter(capturedImageUri),
+                contentDescription = null
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -172,4 +227,16 @@ fun alimentos(
             }
         }
     }
+}
+
+fun Context.createImageFile(): File {
+    // Create an image file name
+    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+    val imageFileName = "JPEG_" + timeStamp + "_"
+    val image = File.createTempFile(
+        imageFileName, /* prefix */
+        ".jpg", /* suffix */
+        externalCacheDir      /* directory */
+    )
+    return image
 }
