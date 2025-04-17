@@ -3,6 +3,7 @@ package com.example.app
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,6 +37,7 @@ import coil.compose.rememberImagePainter
 import com.example.app.ia.ChatHelper
 import com.example.app.viewmodel.AppViewModelProvider
 import com.example.app.viewmodel.OffLineAlimentViewModel
+import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -64,8 +66,14 @@ fun alimentos(
         mutableStateOf<Uri>(Uri.EMPTY)
     }
 
+    val coroutineScope = rememberCoroutineScope()
+
     val cameraLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
+            coroutineScope.launch{
+                val data = ChatHelper().consultarAlimentosEnFoto(context, capturedImageUri)
+                Log.d("Prueba","Respuesta: $data")
+            }
             capturedImageUri = uri
         }
 
@@ -199,7 +207,6 @@ fun alimentos(
         }
 
         if (capturedImageUri.path?.isNotEmpty() == true) {
-            ChatHelper().consultarAlimentosEnFoto(context, capturedImageUri)
             Image(
                 modifier = Modifier
                     .padding(16.dp, 8.dp),
