@@ -22,7 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        buildConfigField("String","OPENAI_API_KEY","\"AGREGAR KEY AQUI\"")
+        buildConfigField("String","OPENAI_API_KEY","\"AQUI EL API KEY\"")
     }
 
     buildTypes {
@@ -107,4 +107,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
 
     implementation(libs.openai.java)
+
+    // Add the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.storage)
 }

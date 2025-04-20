@@ -71,7 +71,7 @@ fun alimentos(
     val cameraLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
             coroutineScope.launch{
-                val data = ChatHelper().consultarAlimentosEnFoto(context, capturedImageUri)
+                val data = ChatHelper().cargarImagen(context, capturedImageUri)
                 Log.d("Prueba","Respuesta: $data")
             }
             capturedImageUri = uri
