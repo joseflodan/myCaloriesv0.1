@@ -31,15 +31,18 @@ fun MyCaloriesApp(
     navController: NavHostController = rememberNavController()
 ){
     var backButton by remember { mutableStateOf(value = false) }
+    var topbar by remember {mutableStateOf(value = false)}
     Scaffold (
         topBar = {
-            MyCaloriesAppBar(
-                canNavgateBack = backButton,
-                navigateUp = { navController.navigateUp()},
-                settings = {
-                    navController.navigate(MyCaloriesScreen.SetingScreen.name)
-                }
-            )
+            if(topbar) {
+                MyCaloriesAppBar(
+                    canNavgateBack = backButton,
+                    navigateUp = { navController.navigateUp() },
+                    settings = {
+                        navController.navigate(MyCaloriesScreen.SetingScreen.name)
+                    }
+                )
+            }
         }
     ){ innerPadding ->
         NavHost(
@@ -49,8 +52,9 @@ fun MyCaloriesApp(
         ){
             composable(route = MyCaloriesScreen.Login.name) {
                 backButton = false
-                Login(
-                    nexScreen = {
+                topbar = false
+                LoginScreen(
+                    nextScreen = {
                         navController.navigate(MyCaloriesScreen.MainMenu.name){
                             popUpTo(0)
                         }
@@ -59,6 +63,7 @@ fun MyCaloriesApp(
             }
             composable(route = MyCaloriesScreen.MainMenu.name){
                 backButton = false
+                topbar = true
                 MainMenu(
                     scanner = {
                         navController.navigate(MyCaloriesScreen.Scanner.name)

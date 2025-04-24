@@ -7,4 +7,12 @@
     <string name="password">Contraseña</string>
     <string name="confirmar_contra">Confirmar Contraseña</string>
     <string name="titulo_screen1">CONFIGURACÓN</string>
+
+    <string name="enfermedad">Enfermedad que padezca</string>
+    <string name="iniciar">Empezar</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="crear_cuenta">¿No tienes cuenta? Regístrate</string>
+    <string name="tener_cuenta">¿Ya tienes cuenta? Inicia sesión</string>
 </resources>
+
+

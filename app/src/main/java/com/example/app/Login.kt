@@ -2,32 +2,14 @@ package com.example.app
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -46,259 +28,264 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.util.UUID
 
+object PrefsHelper {
+    private const val KEY_EMAIL = "email"
+
+    fun saveEmail(context: Context, email: String) {
+        context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
+            .edit()
+            .putString(KEY_EMAIL, email)
+            .apply()
+    }
+
+    fun getEmail(context: Context): String? =
+        context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
+            .getString(KEY_EMAIL, "")
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Login(
+fun LoginScreen(
     modifierExt: Modifier = Modifier,
-    nexScreen: () -> Unit ={},
+    nextScreen: () -> Unit = {},
     viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
+    val headerColor = Color(0xFFA7B099)
     val context = LocalContext.current
-
-    var switchEncendido by remember { mutableStateOf(value = true) }
-    var correo by remember { mutableStateOf(value = "") }
-    var nombreUsua by remember { mutableStateOf(value = "") }
-    var contra by remember { mutableStateOf(value = "") }
-    val condiciones = arrayOf( "Saludable","Diabetes", "Sobrepeso")
+    var isLoginMode by remember { mutableStateOf(true) }
+    var email by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+    val conditions = listOf("Saludable", "Diabetes", "Sobrepeso")
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(condiciones[0]) }
-
-    var confirmCotra by remember { mutableStateOf(value = "") }
-    val titulo = stringResource(
-        if(switchEncendido){
-            R.string.iniciar_sesion
-        }else{
-            R.string.registrarse
-        }
-    )
+    var selectedCondition by remember { mutableStateOf(conditions.first()) }
+    val title = if (isLoginMode) stringResource(R.string.iniciar_sesion) else stringResource(R.string.registrarse)
+    val buttonText = if (isLoginMode) stringResource(R.string.iniciar) else stringResource(R.string.siguiente)
+    val toggleText = if (isLoginMode) stringResource(R.string.crear_cuenta) else stringResource(R.string.tener_cuenta)
     val coroutineScope = rememberCoroutineScope()
+    val iconColor = Color(color = 0xFFbdc3c7)
 
-    val usuarioLogeado = recuperarEMAIL(context)
-    if (usuarioLogeado != null && usuarioLogeado.isNotEmpty()) {
-        nexScreen.invoke()
+    val savedEmail = PrefsHelper.getEmail(context)
+    LaunchedEffect(savedEmail) {
+        if (!savedEmail.isNullOrEmpty()) nextScreen()
     }
-    Column(
-        verticalArrangement = Arrangement.Center,
-        modifier = modifierExt
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        Color(color = 0xFFd5bdaf),
-                        Color(color = 0xFFedede9)
-                    )
-                )
-            )
-            .padding(5.dp)
-            .fillMaxSize()
-    ) {
-        Text (
-            text = titulo,
-            fontSize = 35.sp,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        Switch(
-            checked = switchEncendido,
-            onCheckedChange = {
-                switchEncendido = !switchEncendido
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        val imagen = painterResource(R.drawable.logo)
-        Image(
-            painter = imagen,
-            modifier = Modifier.align(Alignment.CenterHorizontally).height(200.dp),
-            contentDescription = null
-        )
-        OutlinedTextField(
-            value = correo,
-            onValueChange = {
-                correo = it
-            },
-            label = {
-                Text(
-                    stringResource(R.string.correo_electr)
-                )
-            },
-            modifier = Modifier.fillMaxWidth(),
-        )
-        if(!switchEncendido){
-            OutlinedTextField(
-                value = nombreUsua,
-                onValueChange = {
-                    nombreUsua = it
-                },
-                label = {
-                    Text(
-                        stringResource(R.string.nombre_usuario)
-                    )
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        OutlinedTextField(
-            value = contra,
-            onValueChange = {
-                contra = it
-            },
-            label = {
-                Text(
-                    stringResource(R.string.password)
-                )
-            },
-            modifier = Modifier.fillMaxWidth(),
-            visualTransformation = PasswordVisualTransformation()
-        )
-        if(!switchEncendido){
-            OutlinedTextField(
-                value = confirmCotra,
-                onValueChange = {
-                    confirmCotra = it
-                },
-                label = {
-                    Text(
-                        stringResource(R.string.confirmar_contra)
-                    )
-                },
-                modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation()
-            )
-        }
-        if(!switchEncendido) {
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = {
-                    expanded = !expanded
-                }
-            ) {
-                OutlinedTextField(
-                    value = selectedText,
-                    onValueChange = {},
-                    readOnly = true,
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 0.dp, vertical = 10.dp)
-                        .menuAnchor()
-                )
 
-                ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                ) {
-                    condiciones.forEach { item ->
-                        DropdownMenuItem(
-                            text = { Text(text = item) },
-                            onClick = {
-                                selectedText = item
-                                expanded = false
-                            }
+    Column(
+        modifier = modifierExt
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .background(headerColor, RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text = "My Calories", fontSize = 45.sp,color = Color.Black)
+                Text(text = title, fontSize = 24.sp, color = Color.White)
+                Spacer(Modifier.height(16.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Switch(
+                        checked = !isLoginMode,
+                        onCheckedChange = { isLoginMode = !it },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Color.White,
+                            uncheckedThumbColor = Color.Gray
                         )
-                    }
+                    )
                 }
             }
         }
 
-
-        OutlinedButton(
-            onClick =  {
-
-                if (switchEncendido){
-                    // INICIAR SESION
-                    coroutineScope.launch {
-                        val sesion = viewModel.leerUsuario(email = correo, password = contra)
-                        if(sesion.pasar){
-                            guardArEMAIL(context, correo)
-                            nexScreen.invoke()
-                        }else{
-                            Toast.makeText(context,sesion.mensaje,Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }else{
-                    // REGISTRARSE
-                    if(correo.isEmpty()){
-                        Toast.makeText(context,"Correo vacio",Toast.LENGTH_SHORT).show()
-                    }else if (nombreUsua.isEmpty()){
-                        Toast.makeText(context,"Nombre vacio",Toast.LENGTH_SHORT).show()
-                    }else if (contra.isEmpty()){
-                        Toast.makeText(context,"Contrasena vacia",Toast.LENGTH_SHORT).show()
-                    }else if (confirmCotra.isEmpty()) {
-                        Toast.makeText(context, "Confirmar contrasena vacia", Toast.LENGTH_SHORT)
-                            .show()
-                    }else{
-                        val user = User(email = correo, name = nombreUsua, password = contra, condicion =  selectedText)
-                        coroutineScope.launch {
-                           val seGuardo =  viewModel.validarUsuario(user = user)
-                            if (seGuardo){
-                                Toast.makeText(context, "Usuario creado",Toast.LENGTH_SHORT).show()
-                                guardArEMAIL(context, correo)
-                                nexScreen.invoke()
-                            } else
-                            {
-                                Toast.makeText(context, "El correo ya existe",Toast.LENGTH_SHORT).show()
-                            }
-                            }
-                        }
-                       // validarUsuario(context, user, nexScreen)
-                    }
-
-        },
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
-        ){
-            Text(text = "SIGUIENTE")
-        }
-    }
-}
-
-private fun guardArEMAIL (context: Context, email: String){
-    val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
-    with(sharedPref.edit()){
-        putString("email" , email)
-        apply()
-    }
-}
-
-private fun recuperarEMAIL (context: Context): String?{
-    val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
-    return sharedPref.getString("email","")
-}
-
-private fun registrarUsuario(usuario: User){
-    val reference = Firebase.database.getReference("usuarios")
-
-    var uniqueID = UUID.randomUUID().toString()
-    val idReference = reference.child(uniqueID)
-    idReference.setValue(usuario)
-}
-
-private fun validarUsuario(context: Context, usuario: User, nextScreen: () -> Unit ={}){
-    val reference = Firebase.database.getReference("usuarios")
-    reference.get().addOnSuccessListener {
-        val filtered = it.children.filter {
-            it.getValue(User::class.java)?.email.equals(
-                usuario.email
-                ,true
+        Spacer(Modifier.height(24.dp))
+        Column(modifier = Modifier.padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text(stringResource(R.string.correo_electr)) },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_email),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = iconColor
+                    )
+                },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.outlinedTextFieldColors(focusedTextColor = Color.Black, unfocusedTextColor = Color.Black)
             )
-        }
+            if (!isLoginMode) {
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = username,
+                    onValueChange = { username = it },
+                    label = { Text(stringResource(R.string.nombre_usuario)) },
+                    leadingIcon ={
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_user),
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp),
+                            tint = iconColor
+                        )
+                    },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedTextColor = Color.Black, unfocusedTextColor = Color.Black)
 
-        if (filtered.isNotEmpty()){
-            Toast.makeText(context, "El correo ya existe",Toast.LENGTH_SHORT).show()
-        } else {
+                )
+            }
+            Spacer(Modifier.height(8.dp))
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text(stringResource(R.string.password)) },
+                visualTransformation = PasswordVisualTransformation(),
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_passw),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = iconColor
+                    )
+                },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.outlinedTextFieldColors(focusedTextColor = Color.Black, unfocusedTextColor = Color.Black)
+            )
+            if (!isLoginMode) {
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
+                    label = { Text(stringResource(R.string.confirmar_contra)) },
+                    visualTransformation = PasswordVisualTransformation(),
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_passw),
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp),
+                            tint = iconColor
+                        )
+                    },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedTextColor = Color.Black, unfocusedTextColor = Color.Black)
+                )
+                Spacer(Modifier.height(8.dp))
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded }
+                ) {
+                    OutlinedTextField(
+                        value = selectedCondition,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(stringResource(R.string.enfermedad)) },
+                        leadingIcon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_health),
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp),
+                                tint = iconColor
+                            )
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = { expanded = !expanded }) {
+                                TrailingIcon(expanded = expanded)
+                            }
+                        },
+                        modifier = Modifier.menuAnchor().fillMaxWidth(),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(focusedTextColor = Color.Black, unfocusedTextColor = Color.Black)
+                    )
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        conditions.forEach { opt ->
+                            DropdownMenuItem(
+                                text = { Text(opt) },
+                                onClick = {
+                                    selectedCondition = opt
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(24.dp))
+            Button(
+                onClick = {
+                    if (isLoginMode) {
+                        coroutineScope.launch {
+                            val session = viewModel.leerUsuario(email, password)
+                            if (session.pasar) {
+                                PrefsHelper.saveEmail(context, email)
+                                nextScreen()
+                            } else {
+                                Toast.makeText(context, session.mensaje, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        when {
+                            email.isBlank() -> Toast.makeText(context, "Correo vacío", Toast.LENGTH_SHORT).show()
+                            username.isBlank() -> Toast.makeText(context, "Nombre vacío", Toast.LENGTH_SHORT).show()
+                            password.isBlank() -> Toast.makeText(context, "Contraseña vacía", Toast.LENGTH_SHORT).show()
+                            confirmPassword.isBlank() -> Toast.makeText(context, "Confirmar contraseña vacía", Toast.LENGTH_SHORT).show()
+                            else -> {
+                                val user = User(email = email, name = username, password = password, condicion = selectedCondition)
+                                coroutineScope.launch {
+                                    if (viewModel.validarUsuario(user)) {
+                                        Toast.makeText(context, "Usuario creado", Toast.LENGTH_SHORT).show()
+                                        PrefsHelper.saveEmail(context, email)
+                                        nextScreen()
+                                    } else {
+                                        Toast.makeText(context, "El correo ya existe", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .height(50.dp),
+                shape = RoundedCornerShape(50),
+                colors = ButtonDefaults.buttonColors(containerColor = headerColor)
+            ) {
+                Text(text = buttonText, color = Color.White)
+            }
+        }
+    }
+}
+
+private fun registrarUsuario(usuario: User) {
+    val ref = Firebase.database.getReference("usuarios").child(UUID.randomUUID().toString())
+    ref.setValue(usuario)
+}
+
+private fun validarUsuario(context: Context, usuario: User, next: () -> Unit = {}) {
+    val ref = Firebase.database.getReference("usuarios")
+    ref.get().addOnSuccessListener {
+        val exists = it.children.any { snap ->
+            snap.getValue(User::class.java)?.email.equals(usuario.email, true)
+        }
+        if (exists) Toast.makeText(context, "El correo ya existe", Toast.LENGTH_SHORT).show()
+        else {
             registrarUsuario(usuario)
-            Toast.makeText(context, "Usuario creado",Toast.LENGTH_SHORT).show()
-            nextScreen.invoke()
+            Toast.makeText(context, "Usuario creado", Toast.LENGTH_SHORT).show()
+            next()
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    AppTheme {
-        Login()
-    }
+fun LoginPreview() {
+    AppTheme { LoginScreen() }
 }
