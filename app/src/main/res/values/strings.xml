@@ -13,6 +13,7 @@
     <string name="siguiente">Siguiente</string>
     <string name="crear_cuenta">¿No tienes cuenta? Regístrate</string>
     <string name="tener_cuenta">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="no_data_alimentos">No se detectaron alimentos en la imagen intenta nuevaente</string>
 </resources>
 
 

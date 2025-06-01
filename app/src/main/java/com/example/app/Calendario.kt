@@ -122,7 +122,7 @@ fun Calendario(modifier: Modifier = Modifier)
         }
     }
     when{
-        openAlertDialog.value -> MinimalDialog(date){
+        openAlertDialog.value -> confirmationDialoge(date){
             openAlertDialog.value = false
             date.value = ""
         }
@@ -130,7 +130,7 @@ fun Calendario(modifier: Modifier = Modifier)
 }
 
 @Composable
-fun MinimalDialog(
+fun confirmationDialoge(
     date: MutableState<String>,
     calenviewModel: OffLineCalenViewModel = viewModel(factory = AppViewModelProvider.Factory),
     onDismissRequest: () -> Unit) {

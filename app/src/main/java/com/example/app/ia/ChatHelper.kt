@@ -20,22 +20,26 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
 
 class ChatHelper {
-    suspend fun cargarImagen(context: Context, capturedImageUri: Uri)= withContext(Dispatchers.IO){
+    suspend fun cargarImagen(context: Context, capturedImageUri: Uri): String= withContext(Dispatchers.IO){
         val imputStream = context.contentResolver.openInputStream(capturedImageUri)
         val bitmap = BitmapFactory.decodeStream(imputStream)
         imputStream?.close()
 
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos)
-        val data = baos.toByteArray()
+        if(bitmap != null){
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos)
+            val data = baos.toByteArray()
 
-        val storageRef = Firebase.storage.reference
-        val ImagesRef = storageRef.child("images/Food.jpg")
+            val storageRef = Firebase.storage.reference
+            val ImagesRef = storageRef.child("images/Food.jpg")
 
-        var uploadTask = ImagesRef.putBytes(data)
-        val result = uploadTask.await()
-        val downloadUrl = result.storage.downloadUrl.await()
-        consultarAlimentosEnFoto(downloadUrl.toString())
+            var uploadTask = ImagesRef.putBytes(data)
+            val result = uploadTask.await()
+            val downloadUrl = result.storage.downloadUrl.await()
+            consultarAlimentosEnFoto(downloadUrl.toString())
+        }else {
+            ""
+        }
     }
 
     suspend fun consultarAlimentosEnFoto(url: String): String = withContext(Dispatchers.IO){
@@ -58,7 +62,7 @@ class ChatHelper {
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url": "$url"
+                                "url": $url
                             }
                         }
                     ]

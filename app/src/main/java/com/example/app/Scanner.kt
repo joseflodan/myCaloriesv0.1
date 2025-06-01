@@ -192,6 +192,7 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(
+
             text = respuesta.product?.brands ?: "Marca no disponible",
             textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.CenterHorizontally)
