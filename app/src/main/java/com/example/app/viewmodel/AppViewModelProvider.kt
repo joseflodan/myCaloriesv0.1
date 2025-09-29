@@ -21,8 +21,10 @@ object AppViewModelProvider{
         initializer {
             OffLineAlimentViewModel(myApp().container.alimentRepository)
         }
+        initializer {
+            ChatViewModel()
+        }
     }
-
 }
 
 fun CreationExtras.myApp() : MyApp = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY ] as MyApp)

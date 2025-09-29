@@ -102,4 +102,7 @@ class OffLineUserViewModel (private val userRepository: UserRepository): ViewMod
         return user.tmb.toFloat()
     }
 
+    fun getUser(email: String):User {
+        return userRepository.getUsers(email)
+    }
 }

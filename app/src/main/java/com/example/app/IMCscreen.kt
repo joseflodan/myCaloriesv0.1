@@ -49,12 +49,14 @@ import com.example.app.MyApp.Companion.EJERCICIO
 import com.example.app.viewmodel.AppViewModelProvider
 import com.example.app.viewmodel.OffLineUserViewModel
 import kotlinx.coroutines.launch
+import java.security.Principal
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IMCscreen(
     modifier: Modifier = Modifier,
+    menuPrincipal: () -> Unit = {},
     strokeWidth: Dp = 8.dp,
     fillColor: Color = Color(color = 0xFFa07054),
     backgroundColor: Color = Color(color = 0xFF6b4a38),
@@ -346,11 +348,16 @@ fun IMCscreen(
 */
         OutlinedButton(
             onClick =  {
+                if (altura.isEmpty() || peso.isEmpty() || edad.isEmpty()){
+                    Toast.makeText(context, "Llene todos los campos", Toast.LENGTH_SHORT).show()
+                    return@OutlinedButton
+                }
                 coroutineScope.launch {
                         val email = recuperarEMAIL(context).toString()
                         viewModel.guardarDatos(email,sexo,altura,peso,edad,imc,ejercicioSeleccionado)
                     }
                 Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()
+                menuPrincipal()
             },
             modifier = Modifier
                 .padding(horizontal = 10.dp)

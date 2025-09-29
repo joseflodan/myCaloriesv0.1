@@ -83,7 +83,7 @@ fun SetingScreen(
         }
         OutlinedButton(
             onClick = {
-                borrarEMAIL(context)
+                borrarDatos(context)
                 cerrarSesion.invoke()
             },
             modifier = Modifier
@@ -133,10 +133,11 @@ private fun callChatGPT(){
     }
 }
 
-private fun borrarEMAIL (context: Context){
+private fun borrarDatos (context: Context){
     val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
     with(sharedPref.edit()){
         remove("email")
+        remove("hilo")
         apply()
     }
 }

@@ -35,7 +35,8 @@ fun MainMenu(
     contador: () -> Unit = {},
     imc: () -> Unit = {},
     calen: () -> Unit = {},
-    alim: () -> Unit = {}
+    alim: () -> Unit = {},
+    chat: () -> Unit = {}
 ) {
     val context = LocalContext.current;
     Column(
@@ -165,6 +166,20 @@ fun MainMenu(
                 tint = colorIconos
             )
             Text(text = " REGIS DE ALIMENTOS", color = Color.Black)
+        }
+
+        TextButton(
+            onClick = {
+                chat.invoke()
+            },
+            modifier = Modifier.offset(x = screenWith / 2 - screenWith / 6, y = -screenWith / 28)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.button1),
+                contentDescription = null,
+                tint = colorIconos
+            )
+            Text(text = "ChatBot", color = Color.Black)
         }
     }
 }

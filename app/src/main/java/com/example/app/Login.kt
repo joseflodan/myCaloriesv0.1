@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.app.data.user.User
 import com.example.app.ui.theme.AppTheme
+import com.example.app.utils.PrefsHelper
 import com.example.app.viewmodel.AppViewModelProvider
 import com.example.app.viewmodel.OffLineUserViewModel
 import com.google.firebase.database.ktx.database
@@ -28,26 +29,12 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-object PrefsHelper {
-    private const val KEY_EMAIL = "email"
-
-    fun saveEmail(context: Context, email: String) {
-        context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
-            .edit()
-            .putString(KEY_EMAIL, email)
-            .apply()
-    }
-
-    fun getEmail(context: Context): String? =
-        context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
-            .getString(KEY_EMAIL, "")
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     modifierExt: Modifier = Modifier,
     nextScreen: () -> Unit = {},
+    primerInicioSesion: () -> Unit = {},
     viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val headerColor = Color(0xFFA7B099)
@@ -243,7 +230,7 @@ fun LoginScreen(
                                     if (viewModel.validarUsuario(user)) {
                                         Toast.makeText(context, "Usuario creado", Toast.LENGTH_SHORT).show()
                                         PrefsHelper.saveEmail(context, email)
-                                        nextScreen()
+                                        primerInicioSesion()
                                     } else {
                                         Toast.makeText(context, "El correo ya existe", Toast.LENGTH_SHORT).show()
                                     }

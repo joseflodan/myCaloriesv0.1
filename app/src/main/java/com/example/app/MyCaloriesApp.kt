@@ -23,8 +23,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 @Composable
 fun MyCaloriesApp(
@@ -58,6 +56,11 @@ fun MyCaloriesApp(
                         navController.navigate(MyCaloriesScreen.MainMenu.name){
                             popUpTo(0)
                         }
+                    },
+                    primerInicioSesion = {
+                        navController.navigate(MyCaloriesScreen.IMCscreen.name){
+                            popUpTo(0)
+                        }
                     }
                 )
             }
@@ -82,6 +85,9 @@ fun MyCaloriesApp(
                     },
                     alim={
                         navController.navigate(MyCaloriesScreen.alimentos.name)
+                    },
+                    chat={
+                        navController.navigate(MyCaloriesScreen.charbot.name)
                     }
                 )
             }
@@ -109,7 +115,13 @@ fun MyCaloriesApp(
             }
             composable(route = MyCaloriesScreen.IMCscreen.name) {
                 backButton = true
-                IMCscreen()
+                IMCscreen(
+                    menuPrincipal = {
+                        navController.navigate(MyCaloriesScreen.MainMenu.name){
+                            popUpTo(0)
+                        }
+                    }
+                )
             }
             composable(route = MyCaloriesScreen.Calendario.name) {
                 backButton = true
@@ -118,6 +130,10 @@ fun MyCaloriesApp(
             composable(route = MyCaloriesScreen.alimentos.name) {
                 backButton = true
                 alimentos()
+            }
+            composable(route = MyCaloriesScreen.charbot.name) {
+                backButton = true
+                chatbot()
             }
         }
     }
