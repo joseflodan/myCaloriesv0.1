@@ -34,36 +34,31 @@ import com.example.app.viewmodel.OffLineUserViewModel
 @Composable
 fun ContadorScreen(
     modifier: Modifier = Modifier,
-    fillColor: Color = Color(color = 0xFFa07054),
-    backgroundColor: Color = Color(color =0xFF6b4a38),
     strokeWidth: Dp = 8.dp,
     userviewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory),
     calenviewModel: OffLineCalenViewModel = viewModel(factory = AppViewModelProvider.Factory)
 
 ) {
+    val strokeWidth = 24.dp
     val BackgroundStartAngle = 140f
     val BackgroundSweepAngle = 260f
     val TotalSweepAngle = 260.0
     val context = LocalContext.current
+
+    val secondarySage = Color(0xFF6a815b)
+    val primarySage =   Color(0xFFF7FDF7)
+    val background = Color(0xFFa9ba9d)
+    val DarkText = Color(0xFF232F27)
+
     val email = recuperarEMAIL(context).toString()
-
     val tmb = userviewModel.getTMB(email)
-
     val calorias = calenviewModel.getTodayCalories(email)
-
     val percentage = calorias/tmb
 
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        Color(color = 0xFFd5bdaf),
-                        Color(color = 0xFFedede9)
-                    )
-                )
-            )
+            .background(background)
             .padding(5.dp)
             .fillMaxSize()
     ) {
@@ -78,23 +73,26 @@ fun ContadorScreen(
                 .size(150.dp)
                 .padding(10.dp),
         ) {
+
+            val canvasSize = screenWith.toPx()
+            val strokeWidthPx = strokeWidth.toPx()
+
             drawArc(
-                color = backgroundColor,
+                color = secondarySage,
                 startAngle = BackgroundStartAngle,
                 sweepAngle = BackgroundSweepAngle,
                 useCenter = false,
-                style = Stroke((strokeWidth+10.dp).toPx(), cap = StrokeCap.Round),
-                size = Size(screenWith.toPx(), screenWith.toPx()),
+                style = Stroke(strokeWidthPx + 10f, cap = StrokeCap.Round),
+                size = Size(canvasSize, canvasSize),
                 topLeft = Offset(x = 0f, y = - screenHeight.value / 3f)
             )
-
             drawArc(
-                color = fillColor,
+                color = primarySage,
                 startAngle = BackgroundStartAngle,
                 sweepAngle = (percentage * TotalSweepAngle).toFloat(),
                 useCenter = false,
-                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round),
-                size = Size(screenWith.toPx(), screenWith.toPx()),
+                style = Stroke(strokeWidthPx, cap = StrokeCap.Round),
+                size = Size(canvasSize, canvasSize),
                 topLeft = Offset(x = 0f, y = - screenHeight.value / 3f)
             )
         }
@@ -102,10 +100,12 @@ fun ContadorScreen(
         Text(
             text = "CALORIAS\nCONSUMIDAS",
             textAlign = TextAlign.Center,
-            fontSize = 18.sp,
+            fontSize = 30.sp,
+            color = DarkText,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .offset(
-                    x = screenWith / 2 - screenWith / 7,
+                    x = screenWith / 2.25f - screenWith / 7,
                     y = -screenWith / 3f
                 )
         )

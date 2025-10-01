@@ -64,7 +64,7 @@ class ChatHelper {
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url": $url
+                                "url": "$url"
                             }
                         }
                     ]

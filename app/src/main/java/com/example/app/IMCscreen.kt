@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,6 +24,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -58,8 +60,7 @@ fun IMCscreen(
     modifier: Modifier = Modifier,
     menuPrincipal: () -> Unit = {},
     strokeWidth: Dp = 8.dp,
-    fillColor: Color = Color(color = 0xFFa07054),
-    backgroundColor: Color = Color(color = 0xFF6b4a38),
+    fillColor: Color = Color(0xFFF7FDF7),
     viewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory)
 
 ) {
@@ -70,6 +71,10 @@ fun IMCscreen(
     var ejercicioSeleccionado by remember { mutableStateOf(EJERCICIO[0]) }
     var expanded by remember { mutableStateOf(false) }
 
+    val secondarySage = Color(0xFF6a815b)
+    val background = Color(0xFFa9ba9d)
+    val DarkText = Color(0xFF232F27)
+
     val pattern = remember { Regex("^\\d+\$") }
 
     val context = LocalContext.current
@@ -78,14 +83,7 @@ fun IMCscreen(
     Column(
         verticalArrangement = Arrangement.SpaceAround,
         modifier = modifier
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        Color(color = 0xFFd5bdaf),
-                        Color(color = 0xFFedede9)
-                    )
-                )
-            )
+            .background(background)
             .fillMaxSize()
     ) {
         val configuration = LocalConfiguration.current
@@ -93,7 +91,6 @@ fun IMCscreen(
         val screenWith = configuration.screenWidthDp.dp - 30.dp
         val interactionSource = remember { MutableInteractionSource() }
 
-        // Imagenes y botones para sexo
         Row(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)) {
@@ -109,11 +106,11 @@ fun IMCscreen(
                         indication = null
                     ) { sexo = true },
                 contentScale = ContentScale.FillHeight,
-                colorFilter = ColorFilter.tint(fillColor)
+                colorFilter = ColorFilter.tint(secondarySage)
             )
 
             VerticalDivider(
-                color = fillColor,
+                color = secondarySage,
                 thickness = 5.dp,
                 modifier = Modifier.height(75.dp)
             )
@@ -128,13 +125,12 @@ fun IMCscreen(
                     ) { sexo = false }
                     .background(Color.Transparent),
                 contentScale = ContentScale.FillHeight,
-                colorFilter = ColorFilter.tint(fillColor)
+                colorFilter = ColorFilter.tint(secondarySage)
             )
         }
 
-        // Campos de entrada para altura y peso
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Altura: ", fontSize = 20.sp)
+            Text(text = "Altura: ", fontSize = 20.sp, color = DarkText)
             TextField(
                 value = altura,
                 onValueChange = {
@@ -142,13 +138,14 @@ fun IMCscreen(
                         altura = it
                     }
                 },
+                colors = TextFieldDefaults.textFieldColors(secondarySage),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
-            Text(text = "Cm", fontSize = 20.sp)
+            Text(text = "Cm", fontSize = 20.sp,color = DarkText)
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Peso: ", fontSize = 20.sp)
+            Text(text = "Peso: ", fontSize = 20.sp,color = DarkText)
             TextField(
                 value = peso,
                 onValueChange = {
@@ -158,11 +155,11 @@ fun IMCscreen(
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
-            Text(text = "Kg", fontSize = 20.sp)
+            Text(text = "Kg", fontSize = 20.sp,color = DarkText)
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Edad: ", fontSize = 20.sp)
+            Text(text = "Edad: ", fontSize = 20.sp,color = DarkText)
             TextField(
                 value = edad,
                 onValueChange = {
@@ -172,13 +169,13 @@ fun IMCscreen(
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
-            Text(text = "Años", fontSize = 20.sp)
+            Text(text = "Años", fontSize = 20.sp,color = DarkText)
         }
 
         Column(
             modifier = Modifier
                 .padding(horizontal = 10.dp),) {
-            Text(text = "Frecuencia de Ejercicio: ", fontSize = 20.sp)
+            Text(text = "Frecuencia de Ejercicio: ", fontSize = 20.sp,color = DarkText)
             ExposedDropdownMenuBox(
                 expanded = expanded,
                 onExpandedChange = {
@@ -314,7 +311,6 @@ fun IMCscreen(
 
  */
         var imc = 0.0f
-        // Mostrar IMC calculado
         if (altura.isNotEmpty() && peso.isNotEmpty()) {
             val alturaAlCuadrado = (altura.toFloat() / 100) * (altura.toFloat() / 100)
             imc = peso.toFloat() / alturaAlCuadrado
@@ -362,9 +358,9 @@ fun IMCscreen(
             modifier = Modifier
                 .padding(horizontal = 10.dp)
                 .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
+            colors = ButtonDefaults.buttonColors(containerColor = secondarySage)
         ){
-            Text(text = "GUARDAR")
+            Text(text = "GUARDAR", fontSize = 20.sp,color = DarkText)
         }
     }
 }

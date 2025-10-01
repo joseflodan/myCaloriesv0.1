@@ -22,7 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        buildConfigField("String","OPENAI_API_KEY","\"AQUI EL API KEY\"")
+        buildConfigField("String","OPENAI_API_KEY","\"AQUI_TU_API_KEY\"")
     }
 
     buildTypes {

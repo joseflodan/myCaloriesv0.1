@@ -51,7 +51,7 @@ fun LoginScreen(
     val buttonText = if (isLoginMode) stringResource(R.string.iniciar) else stringResource(R.string.siguiente)
     val toggleText = if (isLoginMode) stringResource(R.string.crear_cuenta) else stringResource(R.string.tener_cuenta)
     val coroutineScope = rememberCoroutineScope()
-    val iconColor = Color(color = 0xFFbdc3c7)
+    val iconColor = Color(color = 0xFF000000)
 
     val savedEmail = PrefsHelper.getEmail(context)
     LaunchedEffect(savedEmail) {

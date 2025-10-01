@@ -1,6 +1,7 @@
 package com.example.app
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Settings
@@ -19,6 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -150,10 +153,10 @@ fun MyCaloriesAppBar(
 ){
     TopAppBar(
         title = {
-            Text(stringResource(R.string.app_name))
+            Text(stringResource(R.string.app_name), fontSize = 30.sp, color = Color.White)
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFFa07054)
+            containerColor = Color(0xFF6a815b)
         ),
         modifier = modifier,
         navigationIcon = {
@@ -161,6 +164,8 @@ fun MyCaloriesAppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.KeyboardArrowLeft,
+                        tint = Color.White,
+                        modifier = Modifier.size(32.dp),
                         contentDescription = ""
                     )
                 }
@@ -174,6 +179,8 @@ fun MyCaloriesAppBar(
             ){
                 Icon(
                     imageVector = Icons.Filled.Settings,
+                    tint = Color.White,
+                    modifier = Modifier.size(32.dp),
                     contentDescription = ""
                 )
             }

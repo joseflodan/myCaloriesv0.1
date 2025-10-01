@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +29,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberImagePainter
 import com.example.app.data.alimentos.AlimentAI
 import com.example.app.ia.ChatHelper
 import com.example.app.viewmodel.AppViewModelProvider
@@ -50,6 +53,11 @@ fun alimentos(
         Objects.requireNonNull(context),
         BuildConfig.APPLICATION_ID + ".provider", file
     )
+
+    val secondarySage = Color(0xFF6a815b)
+    val primarySage =   Color(0xFFF7FDF7)
+    val background = Color(0xFFa9ba9d)
+    val DarkText = Color(0xFF232F27)
 
     var capturedImageUri by remember {
         mutableStateOf<Uri>(Uri.EMPTY)
@@ -81,13 +89,13 @@ fun alimentos(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFDEC3B5)) // Fondo similar al de la imagen
+            .background(background)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "ALIMENTOS NO PROCESADOS",
-            style = TextStyle(fontSize = 20.sp, color = Color.Black)
+            text = "ALIMENTOS NO\n PROCESADOS",
+            style = TextStyle(fontSize = 25.sp, color = DarkText, fontWeight = FontWeight.Bold)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -97,7 +105,7 @@ fun alimentos(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
-                    .background(Color(0xFF8C6E60), RoundedCornerShape(8.dp))
+                    .background(Color(0xFF6a815b), RoundedCornerShape(8.dp))
                     .clickable {
                         val permissionCheckResult =
                             ContextCompat.checkSelfPermission(
@@ -113,7 +121,7 @@ fun alimentos(
                     },
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "+", style = TextStyle(color = Color.White, fontSize = 24.sp))
+                Text(text = "+", style = TextStyle(color = DarkText, fontSize = 24.sp))
             }
         }
 
@@ -126,7 +134,7 @@ fun alimentos(
                 },
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Text(alimento.nombre.replaceFirstChar { it.uppercase() },
+                Text(alimento.nombre.replaceFirstChar { it.uppercase() },color = DarkText,fontSize = 16.sp, fontWeight = FontWeight.Bold,
                     modifier = Modifier.weight(weight = 1f)
                     )
 
@@ -141,14 +149,15 @@ fun alimentos(
                 }
             }
 
-            /*       if (capturedImageUri.path?.isNotEmpty() == true) {
+          /* if (capturedImageUri.path?.isNotEmpty() == true) {
             Image(
                 modifier = Modifier
                     .padding(16.dp, 8.dp),
                 painter = rememberImagePainter(capturedImageUri),
                 contentDescription = null
             )
-        } */
+        }*/
+
         }
         alimentViewModel.listadeAlimentos.forEach{}
 
@@ -161,9 +170,9 @@ fun alimentos(
                     }else{
                         openAlertDialog.value = true}
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFa07054)) // Color del botón
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6a815b)) // Color del botón
             ) {
-                Text("GUARDAR")
+                Text("GUARDAR" , color = DarkText, fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
         }
         when{
@@ -249,14 +258,14 @@ fun confirmationDialoge(
                     onClick = {
                         guardar()
                     },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFa07054)) // Color del botón
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF232F27)) // Color del botón
                 ) {
                     Text("SI")
                 }
 
                 Button(
                     onClick = {onDismissRequest()},
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFa07054)) // Color del botón
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF232F27)) // Color del botón
                 ) {
                     Text("NO")
                 }

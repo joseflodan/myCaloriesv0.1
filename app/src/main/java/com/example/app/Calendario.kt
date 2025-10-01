@@ -33,6 +33,11 @@ fun Calendario(modifier: Modifier = Modifier)
     val openAlertDialog = remember { mutableStateOf(false) }
     val date = remember { mutableStateOf("") }
 
+    val secondarySage = Color(0xFF6a815b)
+    val primarySage =   Color(0xFFF7FDF7)
+    val background = Color(0xFFa9ba9d)
+    val DarkText = Color(0xFF232F27)
+
     val calendar = Calendar.getInstance()
     val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
     val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
@@ -43,14 +48,7 @@ fun Calendario(modifier: Modifier = Modifier)
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        Color(color = 0xFFd5bdaf),
-                        Color(color = 0xFFedede9)
-                    )
-                )
-            )
+            .background(background)
             .padding(5.dp)
             .fillMaxSize()
     ) {
@@ -58,6 +56,7 @@ fun Calendario(modifier: Modifier = Modifier)
             text = SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(calendar.time).uppercase(),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
+            color = DarkText,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
@@ -74,6 +73,7 @@ fun Calendario(modifier: Modifier = Modifier)
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.weight(1f),
+                    color = DarkText,
                     textAlign = TextAlign.Center
                 )
             }
@@ -98,9 +98,7 @@ fun Calendario(modifier: Modifier = Modifier)
                     modifier = Modifier
                         .size(40.dp)
                         .padding(4.dp)
-                        .background(
-                            color = if (isToday) Color.LightGray else Color(0xFF60483a)
-                        ),
+                        .background(color = if (!isToday) secondarySage else primarySage, ),
                     contentAlignment = Alignment.Center
                 ) {
                     TextButton(
@@ -139,6 +137,8 @@ fun confirmationDialoge(
     val email = recuperarEMAIL(context).toString()
     val calorias = calenviewModel.getCaloriesByDay(email,date.value)
 
+    val background = Color(0xFFa9ba9d)
+
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
             modifier = Modifier
@@ -148,7 +148,7 @@ fun confirmationDialoge(
             shape = RoundedCornerShape(16.dp),
         ) {
             Text(
-                text = "This is a minimal dialog" + calorias,
+                text = "Tus calorias de hoy son: " + calorias,
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentSize(Alignment.Center),

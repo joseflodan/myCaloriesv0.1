@@ -11,9 +11,12 @@ import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -31,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -151,18 +155,14 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
+    val background = Color(0xFFa9ba9d)
+    val secondarySage = Color(0xFF6a815b)
+    val DarkText = Color(0xFF232F27)
 
     Column (
         verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        Color(color = 0xFFd5bdaf),
-                        Color(color = 0xFFedede9)
-                    )
-                )
-            )
+            .background(background)
             .padding(5.dp)
             .fillMaxSize()
     ){
@@ -170,10 +170,13 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
         Text(
             text = "RESULTADO",
             textAlign = TextAlign.Center,
-            fontSize = 18.sp,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            color = DarkText
         )
 
+        Spacer(modifier = Modifier.height(20.dp))
 
         if(respuesta.product?.imageUrl?.isNotEmpty() == true) {
             AsyncImage(
@@ -186,24 +189,36 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
             )
         }
 
+        Spacer(modifier = Modifier.height(20.dp))
+
         Text(
             text = respuesta.product?.productName ?: "Nombre no disponible",
             textAlign = TextAlign.Center,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = DarkText
         )
         Text(
 
             text = respuesta.product?.brands ?: "Marca no disponible",
             textAlign = TextAlign.Center,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = DarkText
         )
 
         Text(
             text = "Calorías: ${respuesta.product?.nutriments?.energyKcal ?: "No disponible"}",
-
             textAlign = TextAlign.Center,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = DarkText
         )
+
+        Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedButton(
             onClick =  {
@@ -216,18 +231,26 @@ fun ResultScreen(respuesta: FoodResult, modifier: Modifier = Modifier,
                     }
                 }
                 Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()
-/*
-                try{
-                } catch (_: Exception){}
-                Toast.makeText(context, "GUARDADO", Toast.LENGTH_SHORT).show()
- */
             },
             modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
-        ){
-            Text(text = "GUARDAR")
+                .fillMaxWidth()
+                .height(45.dp),
+            shape = RoundedCornerShape(28.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = secondarySage,
+                contentColor = DarkText
+            ),
+            elevation = ButtonDefaults.buttonElevation(
+                defaultElevation = 8.dp,
+                pressedElevation = 12.dp
+            )
+        ) {
+            Text(
+                text = "GUARDAR",
+                color = DarkText,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
