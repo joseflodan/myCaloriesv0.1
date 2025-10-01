@@ -29,7 +29,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.rememberImagePainter
 import com.example.app.data.alimentos.AlimentAI
 import com.example.app.ia.ChatHelper
 import com.example.app.viewmodel.AppViewModelProvider

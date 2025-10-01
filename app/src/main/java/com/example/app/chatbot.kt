@@ -61,6 +61,7 @@ val backgroundColor = Color.White
 fun chatbot(
     ChatViewModel: ChatViewModel = viewModel(factory = AppViewModelProvider.Factory),
     UserViewModel: OffLineUserViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navigateUp: () -> Unit
 ) {
     val context = LocalContext.current
     var message by remember { mutableStateOf("") }
@@ -91,7 +92,7 @@ fun chatbot(
             .fillMaxSize()
             .background(backgroundColor)
     ) {
-        ChatTopBar()
+        ChatTopBar(onBackClicked = navigateUp)
 
         LazyColumn(
             modifier = Modifier
@@ -131,19 +132,22 @@ fun chatbot(
 }
 
 @Composable
-fun ChatTopBar() {
+fun ChatTopBar(onBackClicked: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(darkGreen)
+            .background(Color(0xFF6a815b))
             .padding(horizontal = 12.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = "Volver",
-            tint = Color.White
-        )
+
+        IconButton(onClick = onBackClicked) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Volver",
+                tint = Color.White
+            )
+        }
         Box(
             modifier = Modifier
                 .padding(horizontal = 12.dp)
@@ -247,10 +251,4 @@ private suspend fun enviarMensajeIniciar(
 private fun recuperarEMAIL(context: Context): String? {
     val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
     return sharedPref.getString("email", "")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun chatbotPreview() {
-    chatbot()
 }

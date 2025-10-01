@@ -11,4 +11,5 @@ enum class MyCaloriesScreen {
     Calendario,
     alimentos,
     charbot,
+    ThemesSelectionScreen
 }

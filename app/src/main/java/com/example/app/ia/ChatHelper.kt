@@ -52,7 +52,7 @@ class ChatHelper {
             "messages": [
                 {
                     "role":"system",
-                    "content": "si la imagen no contiene alimentos debes responder unicamente \"no hay alimentos en la imagen\", si la imagen contiene alimentos entonces vas a responder un json con la siguiente estructura [{\"nombre\": \"alimento1\", \"Kcal\":\"100\",\"Porcion\":\"100g\"},{\"nombre\": \"alimento2\", \"Kcal\":\"100\",\"Porcion\":\"100g\"}] las Kcal se deben calcular en base a porciones de 100g, el tamaño de la porcion siempre sera fijo a 100g"
+                    "content": "si la imagen no contiene alimentos debes responder unicamente \"no hay alimentos en la imagen\", si la imagen contiene alimentos trata de analizar todos los slimentos que apsrecen en la imagen y entonces vas a responder un json con la siguiente estructura [{\"nombre\": \"alimento1\", \"Kcal\":\"100\",\"Porcion\":\"100g\"},{\"nombre\": \"alimento2\", \"Kcal\":\"100\",\"Porcion\":\"100g\"}] las Kcal se deben calcular en base a porciones de 100g, el tamaño de la porcion siempre sera fijo a 100g"
                 },
                 {
                     "role": "user",

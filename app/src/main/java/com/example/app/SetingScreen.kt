@@ -73,15 +73,6 @@ fun SetingScreen(
             Text(text= "TEMA", color = Color.Black,fontSize = 20.sp)
          }
         OutlinedButton(
-            onClick = {},
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
-        ) {
-            Text(text= "AYUDA", color = Color.Black,fontSize = 20.sp)
-        }
-        OutlinedButton(
             onClick = {
                 borrarDatos(context)
                 cerrarSesion.invoke()
@@ -92,24 +83,6 @@ fun SetingScreen(
             colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
         ) {
             Text(text= "CERRAR SESION", color = Color.Black,fontSize = 20.sp)
-        }
-        OutlinedButton(
-            onClick = {},
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
-        ) {
-            Text(text= "PROFECIONALES", color = Color.Black,fontSize = 20.sp)
-        }
-        OutlinedButton(
-            onClick = {},
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFFa07054))
-        ) {
-            Text(text= "CAMBIAR DE CUENTA", color = Color.Black,fontSize = 20.sp)
         }
     }
 }

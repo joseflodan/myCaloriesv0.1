@@ -270,9 +270,3 @@ private fun validarUsuario(context: Context, usuario: User, next: () -> Unit = {
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun LoginPreview() {
-    AppTheme { LoginScreen() }
-}

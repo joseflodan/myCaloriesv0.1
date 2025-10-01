@@ -97,6 +97,7 @@ fun MyCaloriesApp(
             composable(route = MyCaloriesScreen.SetingScreen.name) {
                 backButton = true
                 SetingScreen(
+
                     cerrarSesion = {
                         navController.navigate(MyCaloriesScreen.Login.name){
                             popUpTo(0)
@@ -104,6 +105,9 @@ fun MyCaloriesApp(
                     }
                 )
             }
+/*            composable(route = MyCaloriesScreen.ThemesSelectionScreen.name) {
+                backButton = true
+            }*/
             composable(route = MyCaloriesScreen.Scanner.name) {
                 backButton = true
                 Scanner()
@@ -136,7 +140,11 @@ fun MyCaloriesApp(
             }
             composable(route = MyCaloriesScreen.charbot.name) {
                 backButton = true
-                chatbot()
+                topbar = false
+                chatbot(
+                    navigateUp={navController.navigateUp()}
+
+                )
             }
         }
     }

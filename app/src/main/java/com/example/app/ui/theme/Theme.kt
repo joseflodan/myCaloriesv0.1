@@ -1,53 +1,99 @@
 package com.example.app.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+enum class AppTheme {
+    SAGE,
+    PASTEL_BLUE,
+    PASTEL_PINK,
+    PASTEL_ORANGE,
+    PURPLE,
+    NAVY,
+    AUTUMN_ORANGE
+}
+
+private val SageLightColorScheme = lightColorScheme(
+    primary = Sage_Primary,
+    onPrimary = Sage_OnPrimary,
+    secondary = Sage_Secondary,
+    background = Sage_Background_Light,
+    onBackground = Sage_OnBackground_Light
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+private val SageDarkColorScheme = darkColorScheme(
+    primary = Sage_Primary,
+    onPrimary = Sage_OnPrimary,
+    secondary = Sage_Secondary,
+    background = Sage_Background_Dark,
+    onBackground = Sage_OnBackground_Dark
+)
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val PastelBlueColorScheme = lightColorScheme(
+    primary = PastelBlue_Primary,
+    onPrimary = PastelBlue_OnPrimary,
+    secondary = PastelBlue_Secondary,
+    background = PastelBlue_Background,
+    onBackground = PastelBlue_OnBackground
+)
+
+private val PastelPinkColorScheme = lightColorScheme(
+    primary = PastelPink_Primary,
+    onPrimary = PastelPink_OnPrimary,
+    secondary = PastelPink_Secondary,
+    background = PastelPink_Background,
+    onBackground = PastelPink_OnBackground
+)
+
+private val PastelOrangeColorScheme = lightColorScheme(
+    primary = PastelOrange_Primary,
+    onPrimary = PastelOrange_OnPrimary,
+    secondary = PastelOrange_Secondary,
+    background = PastelOrange_Background,
+    onBackground = PastelOrange_OnBackground
+)
+
+private val PurpleColorScheme = darkColorScheme(
+    primary = Purple_Primary,
+    onPrimary = Purple_OnPrimary,
+    secondary = Purple_Secondary,
+    background = Purple_Background,
+    onBackground = Purple_OnBackground
+)
+
+private val NavyColorScheme = darkColorScheme(
+    primary = Navy_Primary,
+    onPrimary = Navy_OnPrimary,
+    secondary = Navy_Secondary,
+    background = Navy_Background,
+    onBackground = Navy_OnBackground
+)
+
+private val AutumnOrangeColorScheme = darkColorScheme(
+    primary = AutumnOrange_Primary,
+    onPrimary = AutumnOrange_OnPrimary,
+    secondary = AutumnOrange_Secondary,
+    background = AutumnOrange_Background,
+    onBackground = AutumnOrange_OnBackground
 )
 
 @Composable
-fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+fun MyCaloriesAppTheme(
+    selectedTheme: AppTheme = AppTheme.SAGE,
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    val colorScheme = when (selectedTheme) {
+        AppTheme.SAGE -> if (useDarkTheme) SageDarkColorScheme else SageLightColorScheme
+        AppTheme.PASTEL_BLUE -> PastelBlueColorScheme
+        AppTheme.PASTEL_PINK -> PastelPinkColorScheme
+        AppTheme.PASTEL_ORANGE -> PastelOrangeColorScheme
+        AppTheme.PURPLE -> PurpleColorScheme
+        AppTheme.NAVY -> NavyColorScheme
+        AppTheme.AUTUMN_ORANGE -> AutumnOrangeColorScheme
     }
 
     MaterialTheme(
