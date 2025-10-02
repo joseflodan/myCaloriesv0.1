@@ -3,6 +3,7 @@ package com.example.app.utils
 import android.content.Context
 import com.example.app.MyApp
 import com.example.app.ui.theme.AppTheme
+import androidx.core.content.edit
 
 object PrefsHelper {
     private const val KEY_EMAIL = "email"
@@ -10,9 +11,9 @@ object PrefsHelper {
 
     fun saveEmail(context: Context, email: String) {
         context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
-            .edit()
-            .putString(KEY_EMAIL, email)
-            .apply()
+            .edit() {
+                putString(KEY_EMAIL, email)
+            }
     }
 
     fun getEmail(context: Context): String? =
@@ -21,9 +22,9 @@ object PrefsHelper {
 
     fun saveHilo(context: Context, hiloId: String) {
         context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
-            .edit()
-            .putString(THREAD, hiloId)
-            .apply()
+            .edit() {
+                putString(THREAD, hiloId)
+            }
     }
 
     fun getHilo(context: Context): String? =

@@ -35,8 +35,8 @@ import kotlinx.coroutines.withContext
 @Composable
 fun SetingScreen(
     modifier: Modifier = Modifier,
-    cerrarSesion: () -> Unit = {}
-
+    cerrarSesion: () -> Unit = {},
+    tema: () -> Unit = {}
 ){
     val context = LocalContext.current
 
@@ -63,7 +63,7 @@ fun SetingScreen(
         )
          OutlinedButton(
              onClick = {
-                 callChatGPT()
+                 tema.invoke()
              },
              modifier = Modifier
                  .padding(10.dp)
@@ -87,25 +87,6 @@ fun SetingScreen(
     }
 }
 
-private fun callChatGPT(){
-    val client = OpenAIOkHttpClient.builder().apply {
-        val openAIKey = BuildConfig.OPENAI_API_KEY
-        credential(BearerTokenCredential.create(openAIKey))
-    }.build()
-
-    val params = ChatCompletionCreateParams.builder()
-        .addUserMessage("Say this is a test")
-        .model(ChatModel.GPT_4O)
-        .build()
-
-    CoroutineScope(Dispatchers.IO).launch {
-        val chatCompletion = client.chat().completions().create(params)
-        withContext(Dispatchers.Main) {
-            Log.d("Prueba",chatCompletion._choices().toString())
-        }
-    }
-}
-
 private fun borrarDatos (context: Context){
     val sharedPref = context.getSharedPreferences(MyApp.PREFERENCIAS, Context.MODE_PRIVATE)
     with(sharedPref.edit()){
@@ -119,5 +100,4 @@ private fun borrarDatos (context: Context){
 @Composable
 fun SetingPreview (){
     SetingScreen()
-
 }

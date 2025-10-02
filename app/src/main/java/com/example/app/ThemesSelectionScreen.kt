@@ -13,9 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.app.ui.theme.AppTheme
 
-data class AppTheme(
-    val name: String,
+data class AppThemeModel(
+    val theme: AppTheme,
     val primary: Color,
     val secondary: Color,
     val background: Color
@@ -23,21 +24,21 @@ data class AppTheme(
 
 @Composable
 fun ThemeSelectorScreen(
-    onThemeSelected: (AppTheme) -> Unit,
+    onThemeSelected: (AppThemeModel) -> Unit,
     onBack: () -> Unit
 ) {
     val lightThemes = listOf(
-        AppTheme("Azul Pastel", Color(0xFF5C7FE2), Color(0xFFAEC6CF), Color(0xFFF0F4FF)),
-        AppTheme("Rosa Pastel", Color(0xFFE95E86), Color(0xFFFFB6C1), Color(0xFFFFF0F3)),
-        AppTheme("Naranja Pastel", Color(0xFFF9884E), Color(0xFFFFDAB9), Color(0xFFFFF3EE)),
+        AppThemeModel(AppTheme.PASTEL_BLUE, Color(0xFF5C7FE2), Color(0xFFAEC6CF), Color(0xFFF0F4FF)),
+        AppThemeModel(AppTheme.PASTEL_PINK, Color(0xFFE95E86), Color(0xFFFFB6C1), Color(0xFFFFF0F3)),
+        AppThemeModel(AppTheme.PASTEL_ORANGE, Color(0xFFF9884E), Color(0xFFFFDAB9), Color(0xFFFFF3EE)),
     )
     val darkThemes = listOf(
-        AppTheme("Morado", Color(0xFFC0A0FF), Color(0xFFC8BFEA), Color(0xFF141218)),
-        AppTheme("Azul Marino", Color(0xFFA5C8FF), Color(0xFF4169E1), Color(0xFF10141A)),
-        AppTheme("Naranja Otoño", Color(0xFFE59C47), Color(0xFFD2691E), Color(0xFF1A130B)),
+        AppThemeModel(AppTheme.PURPLE, Color(0xFFC0A0FF), Color(0xFFC8BFEA), Color(0xFF141218)),
+        AppThemeModel(AppTheme.NAVY, Color(0xFFA5C8FF), Color(0xFF4169E1), Color(0xFF10141A)),
+        AppThemeModel(AppTheme.AUTUMN_ORANGE, Color(0xFFE59C47), Color(0xFFD2691E), Color(0xFF1A130B)),
     )
 
-    var selectedTheme by remember { mutableStateOf<AppTheme?>(null) }
+    var selectedTheme by remember { mutableStateOf<AppThemeModel?>(null) }
 
     Column(
         modifier = Modifier
@@ -71,9 +72,9 @@ fun ThemeSelectorScreen(
 
 @Composable
 fun ThemeRow(
-    themes: List<AppTheme>,
-    selectedTheme: AppTheme?,
-    onThemeClick: (AppTheme) -> Unit
+    themes: List<AppThemeModel>,
+    selectedTheme: AppThemeModel?,
+    onThemeClick: (AppThemeModel) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         themes.forEach { theme ->
@@ -116,7 +117,7 @@ fun ThemeRow(
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
-                    text = theme.name,
+                    text = theme.theme.name,
                     color = if (selectedTheme == theme) MaterialTheme.colorScheme.primary else Color.Unspecified
                 )
             }

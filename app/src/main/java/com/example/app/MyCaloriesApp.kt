@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +27,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.app.ui.screens.ThemeSelectorScreen
+import com.example.app.ui.theme.AppTheme
+import com.example.app.utils.PrefsHelper
 
 @Composable
 fun MyCaloriesApp(
@@ -97,17 +101,30 @@ fun MyCaloriesApp(
             composable(route = MyCaloriesScreen.SetingScreen.name) {
                 backButton = true
                 SetingScreen(
-
                     cerrarSesion = {
                         navController.navigate(MyCaloriesScreen.Login.name){
+                            popUpTo(0)
+                        }
+                    },
+                    tema = {
+                        navController.navigate(MyCaloriesScreen.ThemesSelectionScreen.name)
+                    }
+                )
+            }
+            composable(route = MyCaloriesScreen.ThemesSelectionScreen.name) {
+                val context = LocalContext.current
+                backButton = true
+                ThemeSelectorScreen(
+                    onBack = { navController.navigateUp() },
+                    onThemeSelected = {theme ->
+                        ThemeState.currentTheme = theme.theme
+                        PrefsHelper.saveTheme(context, theme.theme)
+                        navController.navigate(MyCaloriesScreen.MainMenu.name){
                             popUpTo(0)
                         }
                     }
                 )
             }
-/*            composable(route = MyCaloriesScreen.ThemesSelectionScreen.name) {
-                backButton = true
-            }*/
             composable(route = MyCaloriesScreen.Scanner.name) {
                 backButton = true
                 Scanner()
