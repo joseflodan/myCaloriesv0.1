@@ -116,8 +116,18 @@ fun ThemeRow(
 
                 Spacer(modifier = Modifier.width(12.dp))
 
+                val name = when (theme.theme) {
+                    AppTheme.PASTEL_BLUE -> "Azul Pastel"
+                    AppTheme.PASTEL_PINK -> "Rosa Pastel"
+                    AppTheme.PASTEL_ORANGE -> "Naranja Pastel"
+                    AppTheme.PURPLE -> "Morado"
+                    AppTheme.NAVY -> "Azul Marino"
+                    AppTheme.AUTUMN_ORANGE -> "Naranja Otoño"
+                    else -> ""
+                }
+
                 Text(
-                    text = theme.theme.name,
+                    text = name,
                     color = if (selectedTheme == theme) MaterialTheme.colorScheme.primary else Color.Unspecified
                 )
             }
